@@ -177,7 +177,7 @@
 <body>
 <div class="wrap">
   <header>
- 
+    <div class="eyebrow">Manual del tío perruno</div>
     <h1>Cuidados Pewitas 🐕🐶</h1>
     <div class="fecha" id="fecha"></div>
   </header>
@@ -188,6 +188,7 @@
   </div>
 
   <div id="radar"></div>
+  <div id="radarCaca"></div>
   <div id="agua"></div>
 
   <div class="registro">
@@ -343,9 +344,10 @@ let syncListo = false;
 function asegurarEstructura() {
   const lunes = lunesDeEstaSemana();
   if (!S || typeof S !== "object") S = {};
-  if (S.semanaInicio !== lunes) S = { semanaInicio: lunes, dias: {}, aguaUltima: 0 };
+  if (S.semanaInicio !== lunes) S = { semanaInicio: lunes, dias: {}, aguaUltima: 0, historial: S.historial || [] };
   if (!S.dias) S.dias = {};
   if (!S.aguaUltima) S.aguaUltima = 0;
+  if (!S.historial) S.historial = [];   // registros permanentes (NO se borran cada semana)
   if (!S.dias[HOY]) S.dias[HOY] = {};
   D = S.dias[HOY];
   ["hechas","checks","cacasLisa","paseoCaluga","metodos"].forEach(k => { if(!D[k]) D[k] = {}; });
@@ -442,6 +444,22 @@ function ciclo() {
   });
   if (cambio) guardar();
 
+  // radar caca: avisar 5 min antes de la hora predicha
+  if (radarActivo(ahora)) {
+    const pc = proximaCaca();
+    if (pc) {
+      const minAhoraC = minDeTs(Date.now());
+      const rest = pc.pred - minAhoraC;
+      if (minAhoraC >= pc.trigger && rest <= 5 && rest >= 0) {
+        const clave = "caca-" + pc.trigger;
+        if (!NOTIF[clave]) {
+          notifMarcar(clave);
+          notificar("💩 Caca probable de Caluga", "Se estima cerca de las " + minATexto(pc.pred) + ". ¡Tenerla en el balcón!", "caca");
+        }
+      }
+    }
+  }
+
   // radar pipí (8–22)
   if (radarActivo(ahora)) {
     const hoy8 = new Date(); hoy8.setHours(PIPI_DESDE, 0, 0, 0);
@@ -461,8 +479,104 @@ function ciclo() {
 // ═══════════ HELPERS ═══════════
 function fmt(mins){ const a=Math.abs(mins); if(a<60) return a+" min"; const h=Math.floor(a/60),m=a%60; return m===0?h+" h":h+" h "+m+" min"; }
 function horaTxt(ts){ const d=new Date(ts); return String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0"); }
+function anotarEvento(tipo, lugar) {
+  const r = { t: Date.now(), tipo, lugar };
+  D.registros.push(r);
+  S.historial.push(r);
+  if (S.historial.length > 600) S.historial = S.historial.slice(-600);
+  if (tipo === "pipi") { D.ultimaPipi = Date.now(); notifLimpiar("pipi-"); }
+  if (tipo === "caca") notifLimpiar("caca-");
+}
 
-// ═══════════ RADAR ═══════════
+// ═══════════ RADAR CACA (predicción) ═══════════
+// Modelo inicial (cachorra Corgi Pembroke, 4 meses, 5 kg, 5 comidas Biofresh/día):
+// el reflejo gastrocólico hace que los cachorros defequen ~5-30 min después de comer
+// (usamos 20 min como punto de partida) y también al despertar. Total típico: 3-5 al día.
+// Con >= 5 cacas registradas después de comidas, el modelo usa la mediana REAL de Caluga.
+const DELAY_PRIOR = 20;      // min después de comer (punto de partida)
+const VENTANA_CACA = 90;     // min tras la comida en que se considera "caca de esa comida"
+const DESPERTAR_MIN = 8*60 + 30;
+const COMIDAS_MIN = AGENDA.filter(a => a.comidaCaluga).map(a => {
+  const [h,m] = a.hora.split(":").map(Number); return h*60+m;
+});
+const TRIGGERS = [DESPERTAR_MIN, ...COMIDAS_MIN].sort((a,b)=>a-b);
+
+function minDeTs(ts) { const d = new Date(ts); return d.getHours()*60 + d.getMinutes(); }
+
+function modeloCaca() {
+  const delays = [];
+  (S.historial || []).filter(r => r.tipo === "caca").forEach(r => {
+    const min = minDeTs(r.t);
+    let mejor = null;
+    TRIGGERS.forEach(tr => {
+      const diff = min - tr;
+      if (diff >= 0 && diff <= VENTANA_CACA && (mejor === null || diff < mejor)) mejor = diff;
+    });
+    if (mejor !== null) delays.push(mejor);
+  });
+  if (delays.length >= 5) {
+    delays.sort((a,b)=>a-b);
+    return { delay: delays[Math.floor(delays.length/2)], n: delays.length };
+  }
+  return { delay: DELAY_PRIOR, n: delays.length };
+}
+
+function proximaCaca() {
+  const { delay, n } = modeloCaca();
+  const minAhora = minDeTs(Date.now());
+  const cacasHoy = (D.registros || []).filter(r => r.tipo === "caca");
+  for (const tr of TRIGGERS) {
+    if (minAhora > tr + VENTANA_CACA) continue;              // ventana ya cerrada
+    const yaHizo = cacasHoy.some(r => { const m = minDeTs(r.t); return m >= tr && m <= tr + VENTANA_CACA; });
+    if (yaHizo) continue;                                     // esa comida ya "produjo"
+    return { pred: tr + delay, trigger: tr, delay, n };
+  }
+  return null;
+}
+
+function minATexto(min) {
+  return String(Math.floor(min/60)).padStart(2,"0") + ":" + String(min%60).padStart(2,"0");
+}
+
+function renderRadarCaca() {
+  const el = document.getElementById("radarCaca");
+  if (!radarActivo()) { el.innerHTML = ""; return; }
+  const p = proximaCaca();
+  const { n } = modeloCaca();
+  const base = n >= 5
+    ? "aprendido de " + n + " cacas registradas de Caluga"
+    : "según lo típico para una cachorra de 4 meses" + (n > 0 ? " (aprendiendo: " + n + "/5 registros)" : "");
+  const cacasHoy = (D.registros || []).filter(r => r.tipo === "caca").length;
+  if (!p) {
+    el.innerHTML = `<div class="radar ok" style="background:#FBEBDF;border-color:#C97A4A">
+      <div class="emoji">💩</div><div style="flex:1">
+      <div class="label">Radar caca de Caluga</div>
+      <div class="main">Sin caca a la vista por ahora</div>
+      <div class="sub">Hoy lleva ${cacasHoy} (lo normal: 3 a 5 al día) · la próxima ventana se abre con la próxima comida</div></div></div>`;
+    return;
+  }
+  const minAhora = minDeTs(Date.now());
+  const rest = p.pred - minAhora;
+  const comio = minAhora >= p.trigger;
+  let modo, emoji, main;
+  if (comio && rest <= 0) {
+    modo = "atrasado"; emoji = "🔥";
+    main = "¡Ventana caliente! Puede ser en cualquier momento — al balcón";
+  } else if (comio) {
+    modo = "pronto"; emoji = "💩";
+    main = "Caca en camino: probable a las ~" + minATexto(p.pred) + " (en " + fmt(rest) + ")";
+  } else {
+    modo = "ok"; emoji = "💩";
+    main = "Próxima caca probable: ~" + minATexto(p.pred) + " (tras la comida de las " + minATexto(p.trigger) + ")";
+  }
+  el.innerHTML = `<div class="radar ${modo}" style="${modo==="ok"?"background:#FBEBDF;border-color:#C97A4A":""}">
+    <div class="emoji">${emoji}</div><div style="flex:1">
+    <div class="label">Radar caca de Caluga · hoy lleva ${cacasHoy}</div>
+    <div class="main">${main}</div>
+    <div class="sub">${base} · anótala abajo cuando haga 👇</div></div></div>`;
+}
+
+// ═══════════ RADAR PIPÍ ═══════════
 function renderRadar() {
   const el = document.getElementById("radar");
   if (!radarActivo()) {
@@ -532,11 +646,7 @@ function renderRegistro() {
   renderTimers();
 }
 function registrar(tipo, lugar) {
-  D.registros.push({ t: Date.now(), tipo, lugar });
-  if (tipo === "pipi") {
-    D.ultimaPipi = Date.now();
-    notifLimpiar("pipi-");
-  }
+  anotarEvento(tipo, lugar);
   registroAbierto = null;
   instruccionActual = { clave: tipo + "-" + lugar };
   if (tipo === "pipi" && lugar === "suelo") iniciarTimer("orina");
@@ -661,13 +771,7 @@ function togglePaseoCaluga(id, v) {
   if (!D.paseoCaluga[id]) D.paseoCaluga[id] = {};
   const nuevo = !D.paseoCaluga[id][v];
   D.paseoCaluga[id][v] = nuevo;
-  if (nuevo) {
-    D.registros.push({ t: Date.now(), tipo: v, lugar: "paseo" });
-    if (v === "pipi") {
-      D.ultimaPipi = Date.now();
-      notifLimpiar("pipi-");
-    }
-  }
+  if (nuevo) anotarEvento(v, "paseo");
   guardar(); render();
 }
 
@@ -687,12 +791,9 @@ function renderSemana() {
     h += `✔ ${nHechas}/${AGENDA.length} actividades completadas<br>`;
     const regs = d.registros || [];
     const pipis = regs.filter(r=>r.tipo==="pipi"), cacas = regs.filter(r=>r.tipo==="caca");
-    const resumen = (lista) => {
-      const porLugar = {};
-      lista.forEach(r => { porLugar[r.lugar] = (porLugar[r.lugar]||0)+1; });
-      return Object.entries(porLugar).map(([l,n]) => n+" en "+(LUGAR_TXT[l]||l)).join(", ");
-    };
-    h += `🐶 Caluga: 💧 ${pipis.length} pipí${pipis.length!==1?"s":""}${pipis.length?" ("+resumen(pipis)+")":""} · 💩 ${cacas.length} caca${cacas.length!==1?"s":""}${cacas.length?" ("+resumen(cacas)+")":""}<br>`;
+    const detalle = (lista) => lista.map(r => horaTxt(r.t)+" "+(LUGAR_TXT[r.lugar]||r.lugar)).join(" · ");
+    h += `🐶 💧 ${pipis.length} pipí${pipis.length!==1?"s":""}${pipis.length?": "+detalle(pipis):""}<br>`;
+    h += `🐶 💩 ${cacas.length} caca${cacas.length!==1?"s":""}${cacas.length?": "+detalle(cacas):""}<br>`;
     const paseos = AGENDA.filter(a=>a.paseo);
     paseos.forEach((p,i)=>{
       const c = d.cacasLisa ? d.cacasLisa[p.id] : null;
@@ -721,7 +822,7 @@ function verTab(t){
   render();
 }
 function render(){
-  renderRadar(); renderAgua(); renderRegistro();
+  renderRadar(); renderRadarCaca(); renderAgua(); renderRegistro();
   if (tabActual==="hoy") renderTimeline(); else renderSemana();
 }
 
