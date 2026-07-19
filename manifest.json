@@ -1,6 +1,6 @@
 {
-  "name": "Lisa & Caluga — Manual del tío perruno",
-  "short_name": "Lisa & Caluga",
+  "name": "Cuidados Pewitas",
+  "short_name": "Cuidados Pewitas",
   "description": "Rutina diaria, paseos y alertas de pipí para cuidar a Lisa y Caluga",
   "start_url": "./index.html",
   "scope": "./",
