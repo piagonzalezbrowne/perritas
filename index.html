@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lisa & Caluga</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="theme-color" content="#4E9BB8">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: 'Trebuchet MS','Segoe UI',system-ui,sans-serif;
+    color: #3A2F28;
+    background: linear-gradient(180deg,#DCEEF5 0%,#F6F3EC 240px);
+    min-height: 100vh; padding-bottom: 70px;
+  }
+  .wrap { max-width: 580px; margin: 0 auto; padding: 20px 14px 0; }
+  header .eyebrow { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: #7A6A5C; font-weight: 700; }
+  header h1 { font-size: 28px; line-height: 1.1; margin: 3px 0 2px; }
+  header .fecha { font-size: 15px; color: #7A6A5C; text-transform: capitalize; }
+
+  .radar {
+    border-radius: 20px; padding: 15px 16px; margin: 16px 0;
+    border: 2px solid; box-shadow: 0 4px 14px rgba(60,45,30,.08);
+    display: flex; align-items: center; gap: 12px;
+  }
+  .radar.ok       { background: #EDF5E6; border-color: #7CA95C; }
+  .radar.pronto   { background: #FFF1CC; border-color: #E8A13D; }
+  .radar.atrasado { background: #FDE3DF; border-color: #E2604C; animation: latido 1.5s ease-in-out infinite; }
+  .radar .emoji { font-size: 38px; }
+  .radar .label { font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #8A6A50; }
+  .radar .main  { font-size: 18px; font-weight: 800; margin: 2px 0; }
+  .radar .sub   { font-size: 13px; color: #6B5B4D; }
+  .radar button {
+    border: none; border-radius: 14px; padding: 11px 13px; background: #4E9BB8;
+    color: #fff; font-weight: 800; font-size: 14px; cursor: pointer; white-space: nowrap;
+  }
+
+  .notif-banner {
+    background: #FFF8E8; border: 2px solid #E8A13D; border-radius: 16px;
+    padding: 12px 14px; margin-bottom: 14px; font-size: 14px; line-height: 1.5;
+  }
+  .notif-banner button {
+    margin-top: 8px; border: none; border-radius: 12px; padding: 9px 14px;
+    background: #E8A13D; color: #fff; font-weight: 800; font-size: 14px; cursor: pointer;
+  }
+
+  .progreso { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .barra { flex: 1; height: 10px; background: #E8E0D3; border-radius: 99px; overflow: hidden; }
+  .barra > div { height: 100%; background: linear-gradient(90deg,#E8A13D,#7CA95C); border-radius: 99px; transition: width .4s; }
+  .progreso span { font-size: 13px; font-weight: 700; color: #7A6A5C; }
+
+  .tabs { display: flex; gap: 8px; margin-bottom: 14px; }
+  .tabs button {
+    flex: 1; border: 2px solid #C9BCA9; background: #fff; border-radius: 14px;
+    padding: 9px 0; font-weight: 800; font-size: 14px; color: #7A6A5C; cursor: pointer;
+  }
+  .tabs button.activo { background: #4E9BB8; border-color: #4E9BB8; color: #fff; }
+
+  .timeline { position: relative; padding-left: 25px; }
+  .timeline::before {
+    content: ""; position: absolute; left: 9px; top: 8px; bottom: 8px;
+    width: 3px; background: #DDD2C2; border-radius: 2px;
+  }
+  .item { position: relative; margin-bottom: 11px; }
+  .punto {
+    position: absolute; left: -25px; top: 15px; width: 21px; height: 21px;
+    border-radius: 50%; background: #fff; border: 3px solid;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; color: #fff; font-weight: 900;
+  }
+  .punto.hecha { background: #7CA95C; border-color: #7CA95C !important; }
+  .card {
+    border-radius: 16px; padding: 11px 13px; box-shadow: 0 2px 8px rgba(60,45,30,.06);
+    transition: opacity .2s;
+  }
+  .card.hecha { background: #F1EDE4 !important; opacity: .65; box-shadow: none; }
+  .fila { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; cursor: pointer; }
+  .hora { font-weight: 900; font-size: 15px; font-variant-numeric: tabular-nums; }
+  .titulo { font-weight: 800; font-size: 15px; }
+  .hecha .titulo { text-decoration: line-through; }
+  .chip {
+    margin-left: auto; font-size: 12px; font-weight: 700; background: #fff;
+    border-radius: 99px; padding: 2px 9px; color: #7A6A5C; border: 1px solid #E4DACB;
+  }
+  .nota { font-size: 13.5px; color: #5E5045; margin-top: 4px; line-height: 1.45; }
+  .atraso { font-size: 12px; font-weight: 800; color: #C2503E; margin-top: 5px; }
+
+  .btn-paseo {
+    margin-top: 8px; border: 1.5px solid #6E9A4E; background: #fff; color: #6E9A4E;
+    border-radius: 12px; padding: 6px 12px; font-weight: 800; font-size: 13px; cursor: pointer;
+  }
+  .detalle { background: #fff; border-radius: 12px; padding: 10px 12px; margin-top: 8px; }
+  .detalle h4 { font-size: 13px; color: #6E9A4E; margin: 10px 0 5px; }
+  .detalle h4:first-child { margin-top: 0; }
+  .detalle label {
+    display: flex; gap: 8px; align-items: flex-start; font-size: 13.5px;
+    margin-bottom: 5px; cursor: pointer; line-height: 1.4;
+  }
+  .detalle input[type=checkbox] { margin-top: 2px; accent-color: #6E9A4E; }
+  .detalle .tachado { text-decoration: line-through; opacity: .6; }
+  .detalle .durante { font-size: 13.5px; line-height: 1.5; color: #5E5045; }
+  .caca-btns { display: flex; gap: 6px; flex-wrap: wrap; }
+  .caca-btns button {
+    border: 2px solid; border-radius: 99px; padding: 5px 12px;
+    font-weight: 800; font-size: 13px; cursor: pointer; background: #fff;
+  }
+  .alerta-blanda { font-size: 12.5px; color: #C2503E; font-weight: 700; margin-top: 6px; }
+  .acciones { display: flex; gap: 8px; margin-top: 10px; }
+  .acciones .listo {
+    border: none; border-radius: 12px; padding: 8px 14px; background: #6E9A4E;
+    color: #fff; font-weight: 800; font-size: 13.5px; cursor: pointer;
+  }
+  .acciones .cerrar {
+    border: 1.5px solid #C9BCA9; border-radius: 12px; padding: 8px 14px;
+    background: #fff; color: #7A6A5C; font-weight: 700; font-size: 13.5px; cursor: pointer;
+  }
+
+  .reglas { margin-top: 22px; background: #fff; border-radius: 18px; padding: 15px 17px; border: 2px dashed #D9CBB8; }
+  .reglas h3 { font-size: 15px; margin-bottom: 8px; }
+  .reglas ul { padding-left: 18px; font-size: 14px; line-height: 1.7; color: #5E5045; }
+
+  .historial .dia { background: #fff; border-radius: 16px; padding: 12px 14px; margin-bottom: 10px; box-shadow: 0 2px 8px rgba(60,45,30,.06); }
+  .historial .dia h4 { font-size: 15px; text-transform: capitalize; margin-bottom: 6px; }
+  .historial .reg { font-size: 13.5px; line-height: 1.6; color: #5E5045; }
+  .historial .vacio { text-align: center; color: #9A8A78; font-size: 14px; padding: 24px 0; }
+
+  .pie { text-align: center; font-size: 13px; color: #9A8A78; margin-top: 18px; }
+  @keyframes latido { 0%,100%{transform:scale(1)} 50%{transform:scale(1.012)} }
+  @media (prefers-reduced-motion: reduce){ *{animation:none !important} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Manual del tío perruno</div>
+    <h1>Lisa &amp; Caluga 🐕🐶</h1>
+    <div class="fecha" id="fecha"></div>
+  </header>
+
+  <div id="notifBanner" class="notif-banner" style="display:none">
+    🔔 Para que la app te avise los horarios, activa las notificaciones.
+    <br><button onclick="pedirPermiso()">Activar notificaciones</button>
+  </div>
+
+  <div id="radar"></div>
+
+  <div class="tabs">
+    <button id="tabHoy" class="activo" onclick="verTab('hoy')">📋 Hoy</button>
+    <button id="tabSemana" onclick="verTab('semana')">🗓 Semana</button>
+  </div>
+
+  <div id="vistaHoy">
+    <div class="progreso">
+      <div class="barra"><div id="barraFill" style="width:0%"></div></div>
+      <span id="progresoTxt"></span>
+    </div>
+    <div class="timeline" id="timeline"></div>
+
+    <div class="reglas">
+      <h3>📌 Reglas de oro</h3>
+      <ul>
+        <li><b>Caca de Caluga = recogerla AL TIRO</b> (se la come). Botarla al water con poco papel.</li>
+        <li>Caluga come <b>5 veces al día, 30 g</b> (taza de 52 g → llenar hasta 82 g).</li>
+        <li>Cuando comen juntas: <b>Caluga al corral</b> hasta que Lisa termine.</li>
+        <li>Si Lisa no come, el plato va <b>encima del refri</b> y se ofrece en la próxima comida.</li>
+        <li>Pregabalina de Lisa: <b>½ comprimido a las 9:00 y 20:00</b>, con chorrito de omega 3 encima.</li>
+        <li>Agua de bidón siempre disponible — rellenar ~3 veces al día con la taza.</li>
+        <li>Comidas de Caluga entretenidas: alfombra olfativa, manta olfativa, botella o Kong.</li>
+        <li>Cualquier cosa rara: llamar a Pía 📞</li>
+      </ul>
+    </div>
+    <div class="pie">Toca una actividad para marcarla ✔ · Los paseos tienen su checklist</div>
+  </div>
+
+  <div id="vistaSemana" class="historial" style="display:none"></div>
+</div>
+
+<script>
+// ═══════════ AGENDA (editable) ═══════════
+const AGENDA = [
+  { id:"despertar", hora:"08:30", tipo:"bano", perro:"caluga", titulo:"Balcón apenas despierte",
+    nota:"Esperar pipí Y caca. Recoger la caca INMEDIATAMENTE (o se la come) y botarla al water con POCO papel." },
+  { id:"comida1", hora:"09:00", tipo:"comida", perro:"ambas", titulo:"Comida 1 + pregabalina de Lisa",
+    nota:"Lisa: ½ taza Bravery + ½ comprimido de pregabalina con chorrito de omega 3 encima. Caluga: 30 g (taza 52 g → hasta 82 g). 🚧 Caluga al corral; abrir cuando Lisa termine. Si Lisa no come → plato encima del refri." },
+  { id:"agua1", hora:"09:00", tipo:"agua", perro:"ambas", titulo:"Agua de bidón (1 de 3)",
+    nota:"Verificar y rellenar con la taza." },
+  { id:"bano2", hora:"09:20", tipo:"bano", perro:"caluga", titulo:"Balcón post-desayuno",
+    nota:"Suele hacer caca de nuevo (remanente). Recoger al tiro, water con poco papel." },
+  { id:"paseo1", hora:"09:30", tipo:"paseo", perro:"ambas", titulo:"Paseo 1 (entre 9 y 10)",
+    nota:"Lisa hace pipí y caca SOLO en los paseos.", paseo:true },
+  { id:"juego1", hora:"11:00", tipo:"juego", perro:"caluga", titulo:"Juego con Caluga (tanda 1)",
+    nota:"10 minutos con la pelota o cualquier juguete." },
+  { id:"snack1", hora:"11:30", tipo:"snack", perro:"ambas", titulo:"Snack 1",
+    nota:"Lisa: pata de pollo. Caluga: 30 g (puede ser en alfombra olfativa, manta, botella o Kong)." },
+  { id:"bano3", hora:"11:50", tipo:"bano", perro:"caluga", titulo:"Balcón post-snack",
+    nota:"Recoger caca al tiro si hace." },
+  { id:"agua2", hora:"14:00", tipo:"agua", perro:"ambas", titulo:"Agua de bidón (2 de 3)",
+    nota:"Rellenar con la taza." },
+  { id:"paseo2", hora:"14:15", tipo:"paseo", perro:"ambas", titulo:"Paseo 2 (entre 14 y 15)",
+    nota:"", paseo:true },
+  { id:"comida2", hora:"14:30", tipo:"comida", perro:"ambas", titulo:"Comida 2",
+    nota:"Lisa: ½ taza Bravery (sin pastilla). Caluga: 30 g. 🚧 Caluga al corral hasta que Lisa termine." },
+  { id:"bano4", hora:"14:50", tipo:"bano", perro:"caluga", titulo:"Balcón post-almuerzo",
+    nota:"Caca probable. Recoger al tiro." },
+  { id:"juego2", hora:"16:30", tipo:"juego", perro:"caluga", titulo:"Juego con Caluga (tanda 2)",
+    nota:"Otros 10 minutos de juego." },
+  { id:"snack2", hora:"17:30", tipo:"snack", perro:"ambas", titulo:"Snack 2",
+    nota:"Lisa: pata de pollo. Caluga: 30 g." },
+  { id:"bano5", hora:"17:50", tipo:"bano", perro:"caluga", titulo:"Balcón post-snack",
+    nota:"Recoger caca al tiro si hace." },
+  { id:"paseo3", hora:"18:15", tipo:"paseo", perro:"ambas", titulo:"Paseo 3 (entre 18 y 19)",
+    nota:"", paseo:true },
+  { id:"comida3", hora:"20:00", tipo:"comida", perro:"ambas", titulo:"Comida 3 + pregabalina de Lisa",
+    nota:"Lisa: ½ taza Bravery + ½ comprimido de pregabalina con omega 3 encima. Caluga: 30 g (comida n°5). 🚧 Corral hasta que Lisa termine." },
+  { id:"agua3", hora:"20:15", tipo:"agua", perro:"ambas", titulo:"Agua de bidón (3 de 3)",
+    nota:"Último relleno del día." },
+  { id:"bano6", hora:"20:20", tipo:"bano", perro:"caluga", titulo:"Balcón post-comida",
+    nota:"Recoger caca al tiro." },
+  { id:"paseo4", hora:"21:15", tipo:"paseo", perro:"ambas", titulo:"Paseo 4 (entre 21 y 22)",
+    nota:"Último paseo del día.", paseo:true },
+];
+
+const CHECK_PRE = [
+  "Bolsas para caca 💩 (¡SIEMPRE chequear!)",
+  "Pote con tapa con pellets de Caluga (premios)",
+  "Botitas de Lisa: talco por AMBOS lados, darlas vuelta y ponérselas — ojo que no queden uñas afuera",
+  "Arnés de Caluga + premio (1 pellet) al ponérselo",
+];
+const CHECK_POST = [
+  "Lavar botitas de Lisa POR AMBOS LADOS, colgarlas dadas vuelta para que seque el interior",
+  "Caluga a la tina CON el arnés → lavar patas → secar con la toalla de perritos",
+];
+const TIPOS = {
+  comida:{emoji:"🍚",color:"#D98E2B",bg:"#FFF3DE"}, snack:{emoji:"🍗",color:"#C97A4A",bg:"#FBEBDF"},
+  bano:{emoji:"🚽",color:"#4E9BB8",bg:"#E3F2F8"}, paseo:{emoji:"🦮",color:"#6E9A4E",bg:"#EBF3E3"},
+  juego:{emoji:"🎾",color:"#C96FA0",bg:"#FBEAF4"}, agua:{emoji:"💧",color:"#6D8FD4",bg:"#E9EFFB"},
+};
+const PERROS = { caluga:{n:"Caluga",e:"🐶"}, lisa:{n:"Lisa",e:"🐕"}, ambas:{n:"Las dos",e:"🐕🐶"} };
+const PIPI_MIN = 60;
+const DIAS = ["domingo","lunes","martes","miércoles","jueves","viernes","sábado"];
+
+// ═══════════ ESTADO PERSISTENTE ═══════════
+function hoyKey(d = new Date()) {
+  return d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
+}
+function lunesDeEstaSemana() {
+  const d = new Date();
+  const diff = (d.getDay() + 6) % 7; // lunes=0
+  d.setDate(d.getDate() - diff);
+  return hoyKey(d);
+}
+function cargar() {
+  try {
+    const s = JSON.parse(localStorage.getItem("perritas") || "{}");
+    return s && typeof s === "object" ? s : {};
+  } catch(e) { return {}; }
+}
+function guardar() { try { localStorage.setItem("perritas", JSON.stringify(S)); } catch(e){} }
+
+let S = cargar();
+// Estructura: S.semanaInicio, S.dias = { "2026-07-18": { hechas:{}, checks:{}, cacas:{}, ultimaPipi:ts, notificadas:{} } }
+const lunes = lunesDeEstaSemana();
+if (S.semanaInicio !== lunes) {          // nueva semana → borrar de lunes a lunes
+  S = { semanaInicio: lunes, dias: {} };
+}
+if (!S.dias) S.dias = {};
+const HOY = hoyKey();
+if (!S.dias[HOY]) S.dias[HOY] = { hechas:{}, checks:{}, cacas:{}, ultimaPipi: Date.now(), notificadas:{} };
+const D = S.dias[HOY];
+guardar();
+
+let paseoAbierto = null;
+let tabActual = "hoy";
+
+// ═══════════ NOTIFICACIONES ═══════════
+function pedirPermiso() {
+  if (!("Notification" in window)) { alert("Este navegador no soporta notificaciones."); return; }
+  Notification.requestPermission().then(() => { revisarBanner(); });
+}
+function revisarBanner() {
+  const b = document.getElementById("notifBanner");
+  b.style.display = ("Notification" in window && Notification.permission !== "granted") ? "block" : "none";
+}
+function notificar(titulo, cuerpo, tag) {
+  if (!("Notification" in window) || Notification.permission !== "granted") return;
+  const opts = { body: cuerpo, icon: "icon-192.png", badge: "icon-192.png", tag: tag, vibrate:[200,100,200] };
+  if (navigator.serviceWorker && navigator.serviceWorker.ready) {
+    navigator.serviceWorker.ready.then(reg => reg.showNotification(titulo, opts)).catch(()=>{ try{ new Notification(titulo, opts); }catch(e){} });
+  } else { try { new Notification(titulo, opts); } catch(e){} }
+}
+
+// revisa cada 20 s: actividades cuya hora llegó y no se han notificado, + radar pipí
+function ciclo() {
+  const ahora = new Date();
+  const minAhora = ahora.getHours()*60 + ahora.getMinutes();
+  AGENDA.forEach(a => {
+    const [h,m] = a.hora.split(":").map(Number);
+    const minA = h*60+m;
+    if (minAhora >= minA && minAhora < minA + 3 && !D.hechas[a.id] && !D.notificadas[a.id]) {
+      D.notificadas[a.id] = true; guardar();
+      notificar(TIPOS[a.tipo].emoji + " " + a.hora + " · " + a.titulo, a.nota ? a.nota.slice(0,120) : "¡Es la hora!", a.id);
+    }
+  });
+  // pipí de Caluga
+  const mins = Math.floor((Date.now() - D.ultimaPipi)/60000);
+  if (mins >= PIPI_MIN) {
+    const clave = "pipi-" + Math.floor(mins/15); // re-avisa cada 15 min
+    if (!D.notificadas[clave]) {
+      D.notificadas[clave] = true; guardar();
+      notificar("🚨 Pipí de Caluga", "Lleva " + mins + " min sin hacer pipí. ¡Al balcón!", "pipi");
+    }
+  }
+  render();
+}
+
+// ═══════════ RENDER ═══════════
+function fmt(mins){ const a=Math.abs(mins); if(a<60) return a+" min"; const h=Math.floor(a/60),m=a%60; return m===0?h+" h":h+" h "+m+" min"; }
+
+function renderRadar() {
+  const mins = Math.floor((Date.now() - D.ultimaPipi)/60000);
+  const rest = PIPI_MIN - mins;
+  const modo = rest < 0 ? "atrasado" : rest <= 10 ? "pronto" : "ok";
+  const emoji = modo==="atrasado"?"🚨":modo==="pronto"?"⏰":"🐾";
+  const main = modo==="atrasado" ? "¡Ya pasó! Lleva "+fmt(mins)+" sin ir — al balcón"
+             : modo==="pronto" ? "Le toca en ~"+fmt(rest)+" — prepararse"
+             : "Próxima pipí en ~"+fmt(rest);
+  document.getElementById("radar").innerHTML =
+    '<div class="radar '+modo+'"><div class="emoji">'+emoji+'</div><div style="flex:1">' +
+    '<div class="label">Radar pipí de Caluga · cada ~1 hora</div>' +
+    '<div class="main">'+main+'</div>' +
+    '<div class="sub">Última pipí hace '+fmt(mins)+'</div></div>' +
+    '<button onclick="marcarPipi()">Hizo pipí ✔</button></div>';
+}
+function marcarPipi(){ D.ultimaPipi = Date.now(); Object.keys(D.notificadas).forEach(k=>{ if(k.startsWith("pipi-")) delete D.notificadas[k]; }); guardar(); render(); }
+
+function renderTimeline() {
+  const ahora = new Date();
+  const minAhora = ahora.getHours()*60 + ahora.getMinutes();
+  let html = "";
+  AGENDA.forEach(a => {
+    const t = TIPOS[a.tipo], p = PERROS[a.perro];
+    const hecha = !!D.hechas[a.id];
+    const [h,m] = a.hora.split(":").map(Number);
+    const pasada = h*60+m < minAhora;
+    html += '<div class="item">' +
+      '<div class="punto'+(hecha?" hecha":"")+'" style="border-color:'+t.color+'">'+(hecha?"✓":"")+'</div>' +
+      '<div class="card'+(hecha?" hecha":"")+'" style="background:'+t.bg+'">' +
+      '<div class="fila" onclick="'+(a.paseo?("abrirPaseo(\'"+a.id+"\')"):("toggle(\'"+a.id+"\')"))+'">' +
+      '<span class="hora" style="color:'+t.color+'">'+a.hora+'</span>' +
+      '<span>'+t.emoji+'</span><span class="titulo">'+a.titulo+'</span>' +
+      '<span class="chip">'+p.e+' '+p.n+'</span></div>';
+    if (a.nota) html += '<div class="nota">'+a.nota+'</div>';
+    if (a.paseo) html += renderPaseo(a);
+    if (pasada && !hecha) html += '<div class="atraso">⚠ Pendiente — tocaba a las '+a.hora+'</div>';
+    html += '</div></div>';
+  });
+  document.getElementById("timeline").innerHTML = html;
+  const n = AGENDA.filter(a=>D.hechas[a.id]).length;
+  document.getElementById("barraFill").style.width = (n/AGENDA.length*100)+"%";
+  document.getElementById("progresoTxt").textContent = n+"/"+AGENDA.length;
+}
+
+function renderPaseo(a) {
+  const caca = D.cacas[a.id];
+  if (paseoAbierto !== a.id) {
+    return '<button class="btn-paseo" onclick="abrirPaseo(\''+a.id+'\')">Abrir checklist del paseo'+(caca?' · caca registrada ✔':'')+'</button>';
+  }
+  let h = '<div class="detalle"><h4>ANTES DE SALIR</h4>';
+  CHECK_PRE.forEach((c,i)=>{ const k=a.id+"-pre-"+i;
+    h += '<label><input type="checkbox" '+(D.checks[k]?"checked":"")+' onchange="toggleCheck(\''+k+'\')"><span class="'+(D.checks[k]?"tachado":"")+'">'+c+'</span></label>'; });
+  h += '<h4>DURANTE</h4><div class="durante">🐶 Premiar a Caluga (1 pellet) después de que interactúe con perritos. Vigilar que <b>no coma nada</b> del suelo, pero dejarla olfatear. 🐕 Lisa hace pipí y caca solo acá.</div>';
+  h += '<h4>💩 ¿LISA HIZO CACA?</h4><div class="caca-btns">';
+  [["no","No hizo","#9A8A78"],["normal","Sí, normal","#6E9A4E"],["blanda","Sí, blanda ⚠️","#E2604C"]].forEach(([v,l,c])=>{
+    const sel = caca===v;
+    h += '<button style="border-color:'+c+';color:'+(sel?"#fff":c)+';background:'+(sel?c:"#fff")+'" onclick="setCaca(\''+a.id+'\',\''+v+'\')">'+l+'</button>'; });
+  h += '</div>';
+  if (caca==="blanda") h += '<div class="alerta-blanda">Anotado. Si se repite en el próximo paseo, avisarle a Pía 📞</div>';
+  h += '<h4>AL VOLVER</h4>';
+  CHECK_POST.forEach((c,i)=>{ const k=a.id+"-post-"+i;
+    h += '<label><input type="checkbox" '+(D.checks[k]?"checked":"")+' onchange="toggleCheck(\''+k+'\')"><span class="'+(D.checks[k]?"tachado":"")+'">'+c+'</span></label>'; });
+  h += '<div class="acciones"><button class="listo" onclick="paseoListo(\''+a.id+'\')">Paseo listo ✔</button>' +
+       '<button class="cerrar" onclick="cerrarPaseo()">Cerrar</button></div></div>';
+  return h;
+}
+
+function renderSemana() {
+  const cont = document.getElementById("vistaSemana");
+  const fechas = Object.keys(S.dias).sort();
+  if (!fechas.length) { cont.innerHTML = '<div class="vacio">Aún no hay registros esta semana.</div>'; return; }
+  let h = "";
+  fechas.forEach(f => {
+    const d = S.dias[f];
+    const [y,mo,da] = f.split("-").map(Number);
+    const fecha = new Date(y, mo-1, da);
+    const nHechas = AGENDA.filter(a=>d.hechas && d.hechas[a.id]).length;
+    h += '<div class="dia"><h4>'+DIAS[fecha.getDay()]+' '+da+'</h4><div class="reg">';
+    h += '✔ '+nHechas+'/'+AGENDA.length+' actividades completadas<br>';
+    const paseos = AGENDA.filter(a=>a.paseo);
+    paseos.forEach((p,i)=>{
+      const c = d.cacas ? d.cacas[p.id] : null;
+      const txt = c==="normal"?"💩 normal": c==="blanda"?"💩 <b style='color:#C2503E'>blanda ⚠️</b>": c==="no"?"sin caca":"—";
+      h += 'Paseo '+(i+1)+' ('+p.hora+'): '+txt+'<br>';
+    });
+    h += '</div></div>';
+  });
+  h += '<div class="pie">El registro se guarda de lunes a lunes y se reinicia cada semana.</div>';
+  cont.innerHTML = h;
+}
+
+// ═══════════ ACCIONES ═══════════
+function toggle(id){ D.hechas[id] = !D.hechas[id]; guardar(); render(); }
+function toggleCheck(k){ D.checks[k] = !D.checks[k]; guardar(); render(); }
+function setCaca(id,v){ D.cacas[id] = v; guardar(); render(); }
+function abrirPaseo(id){ paseoAbierto = (paseoAbierto===id? null : id); render(); }
+function cerrarPaseo(){ paseoAbierto = null; render(); }
+function paseoListo(id){ D.hechas[id] = true; paseoAbierto = null; guardar(); render(); }
+function verTab(t){
+  tabActual = t;
+  document.getElementById("tabHoy").classList.toggle("activo", t==="hoy");
+  document.getElementById("tabSemana").classList.toggle("activo", t==="semana");
+  document.getElementById("vistaHoy").style.display = t==="hoy"?"block":"none";
+  document.getElementById("vistaSemana").style.display = t==="semana"?"block":"none";
+  render();
+}
+function render(){
+  renderRadar();
+  if (tabActual==="hoy") renderTimeline(); else renderSemana();
+}
+
+// ═══════════ INICIO ═══════════
+document.getElementById("fecha").textContent =
+  new Date().toLocaleDateString("es-CL",{weekday:"long",day:"numeric",month:"long"});
+revisarBanner();
+render();
+setInterval(ciclo, 20000);
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(()=>{});
+</script>
+</body>
+</html>
