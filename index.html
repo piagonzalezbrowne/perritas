@@ -17,105 +17,84 @@
     min-height: 100vh; padding-bottom: 70px;
   }
   .wrap { max-width: 580px; margin: 0 auto; padding: 20px 14px 0; }
-  header .eyebrow { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: #7A6A5C; font-weight: 700; }
-  header h1 { font-size: 28px; line-height: 1.1; margin: 3px 0 2px; }
-  header .fecha { font-size: 15px; color: #7A6A5C; text-transform: capitalize; }
+  header h1 { font-size: 28px; line-height: 1.1; }
+  header .fecha { font-size: 15px; color: #7A6A5C; text-transform: capitalize; margin-top: 2px; }
 
-  .radar {
-    border-radius: 20px; padding: 15px 16px; margin: 14px 0 10px;
-    border: 2px solid; box-shadow: 0 4px 14px rgba(60,45,30,.08);
-    display: flex; align-items: center; gap: 12px;
+  /* ── Alertas ── */
+  .alerta {
+    border-radius: 20px; padding: 14px 16px; margin-bottom: 10px;
+    border: 2px solid; box-shadow: 0 4px 14px rgba(60,45,30,.09);
+    animation: latido 1.8s ease-in-out infinite;
   }
-  .radar.ok       { background: #EDF5E6; border-color: #7CA95C; }
-  .radar.pronto   { background: #FFF1CC; border-color: #E8A13D; }
-  .radar.atrasado { background: #FDE3DF; border-color: #E2604C; animation: latido 1.5s ease-in-out infinite; }
-  .radar.noche    { background: #EAE6F5; border-color: #9B8EC4; }
-  .radar .emoji { font-size: 38px; }
-  .radar .label { font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #8A6A50; }
-  .radar .main  { font-size: 18px; font-weight: 800; margin: 2px 0; }
-  .radar .sub   { font-size: 13px; color: #6B5B4D; }
+  .alerta .top { display: flex; align-items: center; gap: 12px; }
+  .alerta .emoji { font-size: 36px; }
+  .alerta .msj { font-size: 16.5px; font-weight: 800; line-height: 1.3; }
+  .alerta .sub { font-size: 13px; color: #6B5B4D; margin-top: 3px; }
+  .alerta .btns { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+  .alerta .principal {
+    flex: 1; border: none; border-radius: 13px; padding: 11px 14px; color: #fff;
+    font-weight: 800; font-size: 14.5px; cursor: pointer; min-width: 130px;
+  }
+  .alerta .aplazar {
+    border: 2px solid #C9BCA9; border-radius: 13px; padding: 10px 13px; background: #fff;
+    color: #7A6A5C; font-weight: 800; font-size: 14px; cursor: pointer;
+  }
+  .a-paseo { background: #EBF3E3; border-color: #6E9A4E; }
+  .a-juego { background: #FBEAF4; border-color: #C96FA0; }
+  .a-comida{ background: #FFF3DE; border-color: #D98E2B; }
+  .a-bano  { background: #E3F2F8; border-color: #4E9BB8; }
+  .a-pipi  { background: #FDE3DF; border-color: #E2604C; }
+  .a-caca  { background: #FBEBDF; border-color: #C97A4A; }
+  .a-agua  { background: #E9EFFB; border-color: #6D8FD4; }
 
-  .agua-card {
-    border-radius: 18px; padding: 13px 15px; margin-bottom: 10px;
-    display: flex; align-items: center; gap: 11px; border: 2px solid;
-    box-shadow: 0 2px 8px rgba(60,45,30,.06);
+  .sin-alertas {
+    background: #EDF5E6; border: 2px solid #A8C88E; border-radius: 18px;
+    padding: 14px; text-align: center; margin-bottom: 12px;
   }
-  .agua-card.ok   { background: #E9EFFB; border-color: #6D8FD4; }
-  .agua-card.toca { background: #FFF1CC; border-color: #E8A13D; animation: latido 1.5s ease-in-out infinite; }
-  .agua-card .emoji { font-size: 30px; }
-  .agua-card .main { font-size: 15px; font-weight: 800; }
-  .agua-card .sub { font-size: 13px; color: #6B5B4D; }
-  .agua-card button {
-    border: none; border-radius: 12px; padding: 10px 13px; background: #6D8FD4;
-    color: #fff; font-weight: 800; font-size: 13.5px; cursor: pointer; white-space: nowrap;
-  }
+  .sin-alertas .t { font-weight: 800; font-size: 16px; }
+  .sin-alertas .s { font-size: 13.5px; color: #6B5B4D; margin-top: 2px; }
 
-  .registro {
-    background: #fff; border-radius: 18px; padding: 13px 15px; margin-bottom: 14px;
-    border: 2px solid #C9BCA9; box-shadow: 0 2px 8px rgba(60,45,30,.06);
+  /* ── Chips minimizados ── */
+  .chips-estado { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 14px; }
+  .chip-e {
+    border: 2px solid #D9CBB8; background: #fff; border-radius: 99px;
+    padding: 7px 12px; font-size: 13px; font-weight: 700; color: #6B5B4D; cursor: pointer;
   }
-  .registro h3 { font-size: 14px; margin-bottom: 8px; }
-  .reg-botones { display: flex; gap: 8px; }
-  .reg-botones button {
-    flex: 1; border: 2px solid #4E9BB8; background: #E3F2F8; color: #2E6B84;
-    border-radius: 14px; padding: 11px 0; font-weight: 800; font-size: 15px; cursor: pointer;
+  .chip-e.alerta-on { border-color: #E2604C; background: #FDE3DF; color: #A83E2C; }
+  .chip-detalle {
+    background: #fff; border: 2px solid #D9CBB8; border-radius: 16px;
+    padding: 12px 14px; margin-bottom: 14px; font-size: 13.5px; line-height: 1.5; color: #5E5045;
   }
-  .reg-lugares { margin-top: 10px; }
-  .reg-lugares .pregunta { font-size: 13.5px; font-weight: 800; margin-bottom: 6px; }
-  .chips { display: flex; gap: 6px; flex-wrap: wrap; }
-  .chips button {
-    border: 2px solid #7A6A5C; border-radius: 99px; padding: 7px 13px;
-    font-weight: 800; font-size: 13.5px; cursor: pointer; background: #fff; color: #7A6A5C;
-  }
-  .instruccion {
-    margin-top: 10px; background: #FFF8E8; border: 2px solid #E8A13D;
-    border-radius: 14px; padding: 11px 13px; font-size: 13.5px; line-height: 1.55;
-  }
-  .instruccion b { color: #B0691E; }
-  .timers { margin-top: 8px; }
-  .timer-chip {
-    display: flex; align-items: center; gap: 8px; background: #EAE6F5;
-    border: 2px solid #9B8EC4; border-radius: 14px; padding: 9px 12px;
-    font-size: 13.5px; font-weight: 700; margin-top: 6px;
-  }
-  .timer-chip.listo { background: #EDF5E6; border-color: #7CA95C; }
-  .timer-chip .quitar {
-    margin-left: auto; border: none; background: transparent; color: #7A6A5C;
-    font-weight: 900; font-size: 15px; cursor: pointer;
+  .chip-detalle b { color: #3A2F28; }
+  .chip-detalle .acc { display: flex; gap: 8px; margin-top: 9px; flex-wrap: wrap; }
+  .chip-detalle .acc button {
+    border: none; border-radius: 12px; padding: 9px 13px; background: #4E9BB8;
+    color: #fff; font-weight: 800; font-size: 13.5px; cursor: pointer;
   }
 
-  .notif-banner {
-    background: #FFF8E8; border: 2px solid #E8A13D; border-radius: 16px;
-    padding: 12px 14px; margin-bottom: 14px; font-size: 14px; line-height: 1.5;
+  /* ── Acordeones ── */
+  .acc-sec { margin-bottom: 10px; }
+  .acc-head {
+    width: 100%; display: flex; align-items: center; gap: 9px; cursor: pointer;
+    background: #fff; border: 2px solid #D9CBB8; border-radius: 16px;
+    padding: 13px 15px; font-weight: 800; font-size: 15.5px; color: #3A2F28; text-align: left;
   }
-  .notif-banner button {
-    margin-top: 8px; border: none; border-radius: 12px; padding: 9px 14px;
-    background: #E8A13D; color: #fff; font-weight: 800; font-size: 14px; cursor: pointer;
-  }
+  .acc-head .flecha { margin-left: auto; font-size: 13px; color: #9A8A78; }
+  .acc-head .contador { font-size: 12.5px; font-weight: 700; color: #7A6A5C; background: #F1EDE4; border-radius: 99px; padding: 2px 9px; }
+  .acc-body { padding: 12px 2px 4px; }
 
-  .progreso { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .progreso { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
   .barra { flex: 1; height: 10px; background: #E8E0D3; border-radius: 99px; overflow: hidden; }
   .barra > div { height: 100%; background: linear-gradient(90deg,#E8A13D,#7CA95C); border-radius: 99px; transition: width .4s; }
   .progreso span { font-size: 13px; font-weight: 700; color: #7A6A5C; }
 
-  .tabs { display: flex; gap: 8px; margin-bottom: 14px; }
-  .tabs button {
-    flex: 1; border: 2px solid #C9BCA9; background: #fff; border-radius: 14px;
-    padding: 9px 0; font-weight: 800; font-size: 14px; color: #7A6A5C; cursor: pointer;
-  }
-  .tabs button.activo { background: #4E9BB8; border-color: #4E9BB8; color: #fff; }
-
   .timeline { position: relative; padding-left: 25px; }
-  .timeline::before {
-    content: ""; position: absolute; left: 9px; top: 8px; bottom: 8px;
-    width: 3px; background: #DDD2C2; border-radius: 2px;
-  }
+  .timeline::before { content: ""; position: absolute; left: 9px; top: 8px; bottom: 8px; width: 3px; background: #DDD2C2; border-radius: 2px; }
   .item { position: relative; margin-bottom: 11px; }
   .punto {
     position: absolute; left: -25px; top: 15px; width: 21px; height: 21px;
     border-radius: 50%; background: #fff; border: 3px solid;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 11px; color: #fff; font-weight: 900;
+    display: flex; align-items: center; justify-content: center; font-size: 11px; color: #fff; font-weight: 900;
   }
   .punto.hecha { background: #7CA95C; border-color: #7CA95C !important; }
   .card { border-radius: 16px; padding: 11px 13px; box-shadow: 0 2px 8px rgba(60,45,30,.06); }
@@ -124,52 +103,68 @@
   .hora { font-weight: 900; font-size: 15px; font-variant-numeric: tabular-nums; }
   .titulo { font-weight: 800; font-size: 15px; }
   .hecha .titulo { text-decoration: line-through; }
-  .chip {
-    margin-left: auto; font-size: 12px; font-weight: 700; background: #fff;
-    border-radius: 99px; padding: 2px 9px; color: #7A6A5C; border: 1px solid #E4DACB;
-  }
+  .chip { margin-left: auto; font-size: 12px; font-weight: 700; background: #fff; border-radius: 99px; padding: 2px 9px; color: #7A6A5C; border: 1px solid #E4DACB; }
   .nota { font-size: 13.5px; color: #5E5045; margin-top: 4px; line-height: 1.45; }
   .atraso { font-size: 12px; font-weight: 800; color: #C2503E; margin-top: 5px; }
+  .hecha-hora { font-size: 12px; font-weight: 800; color: #5C8043; margin-top: 4px; }
 
   .metodo { margin-top: 8px; }
   .metodo .pregunta { font-size: 13px; font-weight: 800; margin-bottom: 5px; color: #8A6A50; }
   .metodo .aviso-kong { font-size: 12.5px; color: #C2503E; font-weight: 700; margin-top: 5px; }
 
-  .btn-paseo {
-    margin-top: 8px; border: 1.5px solid #6E9A4E; background: #fff; color: #6E9A4E;
-    border-radius: 12px; padding: 6px 12px; font-weight: 800; font-size: 13px; cursor: pointer;
-  }
+  .chips { display: flex; gap: 6px; flex-wrap: wrap; }
+  .chips button { border: 2px solid #7A6A5C; border-radius: 99px; padding: 6px 12px; font-weight: 800; font-size: 13px; cursor: pointer; background: #fff; color: #7A6A5C; }
+
+  .btn-paseo { margin-top: 8px; border: 1.5px solid #6E9A4E; background: #fff; color: #6E9A4E; border-radius: 12px; padding: 6px 12px; font-weight: 800; font-size: 13px; cursor: pointer; }
   .detalle { background: #fff; border-radius: 12px; padding: 10px 12px; margin-top: 8px; }
   .detalle h4 { font-size: 13px; color: #6E9A4E; margin: 10px 0 5px; }
   .detalle h4:first-child { margin-top: 0; }
-  .detalle label {
-    display: flex; gap: 8px; align-items: flex-start; font-size: 13.5px;
-    margin-bottom: 5px; cursor: pointer; line-height: 1.4;
-  }
+  .detalle label { display: flex; gap: 8px; align-items: flex-start; font-size: 13.5px; margin-bottom: 5px; cursor: pointer; line-height: 1.4; }
   .detalle input[type=checkbox] { margin-top: 2px; accent-color: #6E9A4E; }
   .detalle .tachado { text-decoration: line-through; opacity: .6; }
   .detalle .durante { font-size: 13.5px; line-height: 1.5; color: #5E5045; }
   .alerta-blanda { font-size: 12.5px; color: #C2503E; font-weight: 700; margin-top: 6px; }
   .acciones { display: flex; gap: 8px; margin-top: 10px; }
-  .acciones .listo {
-    border: none; border-radius: 12px; padding: 8px 14px; background: #6E9A4E;
-    color: #fff; font-weight: 800; font-size: 13.5px; cursor: pointer;
-  }
-  .acciones .cerrar {
-    border: 1.5px solid #C9BCA9; border-radius: 12px; padding: 8px 14px;
-    background: #fff; color: #7A6A5C; font-weight: 700; font-size: 13.5px; cursor: pointer;
-  }
+  .acciones .listo { border: none; border-radius: 12px; padding: 8px 14px; background: #6E9A4E; color: #fff; font-weight: 800; font-size: 13.5px; cursor: pointer; }
+  .acciones .cerrar { border: 1.5px solid #C9BCA9; border-radius: 12px; padding: 8px 14px; background: #fff; color: #7A6A5C; font-weight: 700; font-size: 13.5px; cursor: pointer; }
 
-  .reglas { margin-top: 22px; background: #fff; border-radius: 18px; padding: 15px 17px; border: 2px dashed #D9CBB8; }
-  .reglas h3 { font-size: 15px; margin-bottom: 8px; }
+  .instruccion { margin-top: 10px; background: #FFF8E8; border: 2px solid #E8A13D; border-radius: 14px; padding: 11px 13px; font-size: 13.5px; line-height: 1.55; }
+  .instruccion b { color: #B0691E; }
+  .timer-chip { display: flex; align-items: center; gap: 8px; background: #EAE6F5; border: 2px solid #9B8EC4; border-radius: 14px; padding: 9px 12px; font-size: 13.5px; font-weight: 700; margin-top: 6px; }
+  .timer-chip.listo { background: #EDF5E6; border-color: #7CA95C; }
+  .timer-chip .quitar { margin-left: auto; border: none; background: transparent; color: #7A6A5C; font-weight: 900; font-size: 15px; cursor: pointer; }
+  .reg-botones { display: flex; gap: 8px; }
+  .reg-botones button { flex: 1; border: 2px solid #4E9BB8; background: #E3F2F8; color: #2E6B84; border-radius: 14px; padding: 11px 0; font-weight: 800; font-size: 15px; cursor: pointer; }
+  .pregunta { font-size: 13.5px; font-weight: 800; margin: 10px 0 6px; }
+
   .reglas ul { padding-left: 18px; font-size: 14px; line-height: 1.7; color: #5E5045; }
+  .dia { background: #fff; border-radius: 16px; padding: 12px 14px; margin-bottom: 10px; box-shadow: 0 2px 8px rgba(60,45,30,.06); }
+  .dia h4 { font-size: 15px; text-transform: capitalize; margin-bottom: 6px; }
+  .dia .reg { font-size: 13.5px; line-height: 1.6; color: #5E5045; }
+  .vacio { text-align: center; color: #9A8A78; font-size: 14px; padding: 20px 0; }
+  .modelo-box { background: #FFF8E8; border: 2px dashed #E8A13D; border-radius: 14px; padding: 11px 13px; font-size: 13.5px; line-height: 1.6; color: #5E5045; margin-bottom: 10px; }
 
-  .historial .dia { background: #fff; border-radius: 16px; padding: 12px 14px; margin-bottom: 10px; box-shadow: 0 2px 8px rgba(60,45,30,.06); }
-  .historial .dia h4 { font-size: 15px; text-transform: capitalize; margin-bottom: 6px; }
-  .historial .reg { font-size: 13.5px; line-height: 1.6; color: #5E5045; }
-  .historial .vacio { text-align: center; color: #9A8A78; font-size: 14px; padding: 24px 0; }
-
-  .pie { text-align: center; font-size: 13px; color: #9A8A78; margin-top: 18px; }
+  .hora-edit { display: flex; align-items: center; gap: 9px; margin: 4px 0 8px; }
+  .hora-edit input[type=time] {
+    border: 2px solid #C9BCA9; border-radius: 11px; padding: 7px 10px;
+    font-size: 15px; font-weight: 800; font-family: inherit; color: #3A2F28; background: #fff;
+  }
+  .ev-fila {
+    display: flex; align-items: center; gap: 9px; background: #fff;
+    border: 1.5px solid #E4DACB; border-radius: 13px; padding: 7px 10px; margin-bottom: 6px;
+  }
+  .ev-fila input[type=time] {
+    border: 1.5px solid #C9BCA9; border-radius: 9px; padding: 5px 8px;
+    font-size: 14px; font-weight: 800; font-family: inherit; color: #3A2F28; background: #fff;
+  }
+  .ev-fila .ev-lugar { font-size: 13.5px; color: #6B5B4D; font-weight: 700; }
+  .ev-fila .ev-borrar {
+    margin-left: auto; border: none; background: transparent; color: #C2503E;
+    font-weight: 900; font-size: 16px; cursor: pointer; padding: 4px 6px;
+  }
+  .notif-banner { background: #FFF8E8; border: 2px solid #E8A13D; border-radius: 16px; padding: 12px 14px; margin-bottom: 12px; font-size: 14px; line-height: 1.5; }
+  .notif-banner button { margin-top: 8px; border: none; border-radius: 12px; padding: 9px 14px; background: #E8A13D; color: #fff; font-weight: 800; font-size: 14px; cursor: pointer; }
+  .pie { text-align: center; font-size: 13px; color: #9A8A78; margin-top: 16px; }
   @keyframes latido { 0%,100%{transform:scale(1)} 50%{transform:scale(1.012)} }
   @media (prefers-reduced-motion: reduce){ *{animation:none !important} }
 </style>
@@ -182,93 +177,84 @@
   </header>
 
   <div id="notifBanner" class="notif-banner" style="display:none">
-    🔔 Para que la app te avise los horarios, activa las notificaciones.
+    🔔 Para que las pewitas te puedan avisar, activa las notificaciones.
     <br><button onclick="pedirPermiso()">Activar notificaciones</button>
   </div>
 
-  <div id="radar"></div>
-  <div id="radarCaca"></div>
-  <div id="agua"></div>
-
-  <div class="registro">
-    <h3>📝 Registro rápido de Caluga</h3>
-    <div class="reg-botones">
-      <button onclick="abrirRegistro('pipi')">💧 Hizo pipí</button>
-      <button onclick="abrirRegistro('caca')">💩 Hizo caca</button>
-    </div>
-    <div id="regDetalle"></div>
-    <div class="timers" id="timers"></div>
-  </div>
-
-  <div class="tabs">
-    <button id="tabHoy" class="activo" onclick="verTab('hoy')">📋 Hoy</button>
-    <button id="tabSemana" onclick="verTab('semana')">🗓 Semana</button>
-  </div>
-
-  <div id="vistaHoy">
-    <div class="progreso">
-      <div class="barra"><div id="barraFill" style="width:0%"></div></div>
-      <span id="progresoTxt"></span>
-    </div>
-    <div class="timeline" id="timeline"></div>
-
-    <div class="reglas">
-      <h3>📌 Reglas de oro</h3>
-      <ul>
-        <li><b>Caca de Caluga = recogerla AL TIRO</b> (se la come). Botarla al water con poco papel.</li>
-        <li>Caluga come <b>5 veces al día, 30 g</b> (taza de 52 g → llenar hasta 82 g).</li>
-        <li>Cuando comen juntas: <b>Caluga al corral</b> hasta que Lisa termine.</li>
-        <li>Si Lisa no come, el plato va <b>encima del refri</b> y se ofrece en la próxima comida.</li>
-        <li>Pregabalina de Lisa: <b>½ comprimido a las 9:00 y 20:00</b>, con chorrito de omega 3 encima.</li>
-        <li>Comidas de Caluga: preferir <b>alfombra olfativa → botella → manta olfativa → Kong</b>. Kong máximo 1 vez al día.</li>
-        <li>Cualquier cosa rara: llamar a Pía 📞</li>
-      </ul>
-    </div>
-    <div class="pie">Toca una actividad para marcarla ✔ · Los paseos tienen su checklist</div>
-  </div>
-
-  <div id="vistaSemana" class="historial" style="display:none"></div>
+  <div id="alertas"></div>
+  <div id="chipsEstado" class="chips-estado"></div>
+  <div id="chipDetalle"></div>
+  <div id="secciones"></div>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 <script>
-// ═══════════ AGENDA (editable) ═══════════
+// ═══════════════════ AGENDA (editable) ═══════════════════
 const AGENDA = [
-  { id:"despertar", hora:"08:30", tipo:"bano", perro:"caluga", titulo:"Balcón apenas despierte",
-    nota:"Esperar pipí Y caca. Recoger la caca INMEDIATAMENTE (o se la come) y botarla al water con POCO papel. Anotar en el registro rápido de arriba." },
-  { id:"comida1", hora:"09:00", tipo:"comida", perro:"ambas", titulo:"Comida 1 + pregabalina de Lisa", comidaCaluga:true,
+  { id:"despertar", hora:"08:30", tipo:"bano", perro:"caluga", titulo:"Balcón apenas despierte", trigger:"despertar",
+    msj:"¡Desperté! Necesito ir al balcón 🥺",
+    nota:"Esperar pipí Y caca. Recoger la caca INMEDIATAMENTE (o se la come) y botarla al water con POCO papel." },
+
+  { id:"comida1", hora:"09:00", tipo:"comida", perro:"ambas", titulo:"Comida 1 + pregabalina de Lisa", comidaCaluga:true, trigger:"comida",
+    msj:"Tenemos hambre, ¿nos das el desayuno? 🍚🥺",
     nota:"Lisa: ½ taza Bravery + ½ comprimido de pregabalina con chorrito de omega 3 encima. Caluga: 30 g (taza 52 g → hasta 82 g). 🚧 Caluga al corral; abrir cuando Lisa termine. Si Lisa no come → plato encima del refri." },
+
   { id:"bano2", hora:"09:20", tipo:"bano", perro:"caluga", titulo:"Balcón post-desayuno",
-    nota:"Suele hacer caca de nuevo (remanente). Recoger al tiro y anotar en el registro." },
-  { id:"paseo1", hora:"09:30", tipo:"paseo", perro:"ambas", titulo:"Paseo 1 (entre 9 y 10)",
-    nota:"Lisa hace pipí y caca SOLO en los paseos.", paseo:true },
-  { id:"juego1", hora:"11:00", tipo:"juego", perro:"caluga", titulo:"Juego con Caluga (tanda 1)",
+    msj:"Comí y ahora necesito el balcón 😖",
+    nota:"Suele hacer caca de nuevo (remanente). Recoger al tiro y anotar." },
+
+  { id:"paseo1", hora:"09:30", tipo:"paseo", perro:"ambas", titulo:"Paseo de la mañana", paseo:true, trigger:"paseo",
+    msj:"Lisa necesita pasear, por favor 🐕🥺",
+    nota:"Lisa hace pipí y caca SOLO en los paseos." },
+
+  { id:"juego1", hora:"11:00", tipo:"juego", perro:"caluga", titulo:"Juego con Caluga (tanda 1)", trigger:"juego",
+    msj:"¿Jugamos un ratito? Tengo mucha energía 🎾🥹",
     nota:"10 minutos con la pelota o cualquier juguete." },
-  { id:"snack1", hora:"11:30", tipo:"snack", perro:"ambas", titulo:"Snack 1", comidaCaluga:true,
+
+  { id:"snack1", hora:"11:30", tipo:"snack", perro:"ambas", titulo:"Snack 1", comidaCaluga:true, trigger:"comida",
+    msj:"¿Es hora del snack? 🍗👀",
     nota:"Lisa: pata de pollo. Caluga: 30 g." },
+
   { id:"bano3", hora:"11:50", tipo:"bano", perro:"caluga", titulo:"Balcón post-snack",
+    msj:"Balconcito, porfa 🚽",
     nota:"Recoger caca al tiro si hace, y anotar." },
-  { id:"paseo2", hora:"14:15", tipo:"paseo", perro:"ambas", titulo:"Paseo 2 (entre 14 y 15)",
-    nota:"", paseo:true },
-  { id:"comida2", hora:"14:30", tipo:"comida", perro:"ambas", titulo:"Comida 2", comidaCaluga:true,
+
+  { id:"comida2", hora:"14:30", tipo:"comida", perro:"ambas", titulo:"Comida 2", comidaCaluga:true, trigger:"comida",
+    msj:"¡Almuerzooo! Ya rugen nuestras guatitas 🍚",
     nota:"Lisa: ½ taza Bravery (sin pastilla). Caluga: 30 g. 🚧 Caluga al corral hasta que Lisa termine." },
+
   { id:"bano4", hora:"14:50", tipo:"bano", perro:"caluga", titulo:"Balcón post-almuerzo",
+    msj:"Después de almorzar siempre me dan ganas 😬",
     nota:"Caca probable. Recoger al tiro y anotar." },
-  { id:"juego2", hora:"16:30", tipo:"juego", perro:"caluga", titulo:"Juego con Caluga (tanda 2)",
+
+  { id:"paseo2", hora:"15:30", tipo:"paseo", perro:"ambas", titulo:"Paseo de la tarde", paseo:true, trigger:"paseo",
+    msj:"Lisa lleva rato esperando su paseo 🐕😢",
+    nota:"" },
+
+  { id:"juego2", hora:"16:30", tipo:"juego", perro:"caluga", titulo:"Juego con Caluga (tanda 2)", trigger:"juego",
+    msj:"Te traje mi juguete... ¿jugamos? 🎾🐶",
     nota:"Otros 10 minutos de juego." },
-  { id:"snack2", hora:"17:30", tipo:"snack", perro:"ambas", titulo:"Snack 2", comidaCaluga:true,
+
+  { id:"snack2", hora:"17:30", tipo:"snack", perro:"ambas", titulo:"Snack 2", comidaCaluga:true, trigger:"comida",
+    msj:"Snack de la tarde 🍗 ¿te acordaste?",
     nota:"Lisa: pata de pollo. Caluga: 30 g." },
+
   { id:"bano5", hora:"17:50", tipo:"bano", perro:"caluga", titulo:"Balcón post-snack",
+    msj:"Al balcón otra vez, porfis 🚽",
     nota:"Recoger caca al tiro si hace, y anotar." },
-  { id:"paseo3", hora:"18:15", tipo:"paseo", perro:"ambas", titulo:"Paseo 3 (entre 18 y 19)",
-    nota:"", paseo:true },
-  { id:"comida3", hora:"20:00", tipo:"comida", perro:"ambas", titulo:"Comida 3 + pregabalina de Lisa", comidaCaluga:true,
+
+  { id:"comida3", hora:"20:00", tipo:"comida", perro:"ambas", titulo:"Comida 3 + pregabalina de Lisa", comidaCaluga:true, trigger:"comida",
+    msj:"Última comida del día... y mi pastillita 💊🍚",
     nota:"Lisa: ½ taza Bravery + ½ comprimido de pregabalina con omega 3 encima. Caluga: 30 g (comida n°5). 🚧 Corral hasta que Lisa termine." },
+
   { id:"bano6", hora:"20:20", tipo:"bano", perro:"caluga", titulo:"Balcón post-comida",
+    msj:"Balcón de la noche 🌙",
     nota:"Recoger caca al tiro y anotar." },
-  { id:"paseo4", hora:"21:15", tipo:"paseo", perro:"ambas", titulo:"Paseo 4 (entre 21 y 22)",
-    nota:"Último paseo del día.", paseo:true },
+
+  { id:"paseo3", hora:"21:00", tipo:"paseo", perro:"ambas", titulo:"Paseo de la noche", paseo:true, trigger:"paseo",
+    msj:"Último paseo del día, Lisa lo necesita 🌙🐕",
+    nota:"Después de este, Lisa aguanta hasta mañana." },
 ];
 
 const CHECK_PRE = [
@@ -287,37 +273,44 @@ const TIPOS = {
   juego:{emoji:"🎾",color:"#C96FA0",bg:"#FBEAF4"},
 };
 const PERROS = { caluga:{n:"Caluga",e:"🐶"}, lisa:{n:"Lisa",e:"🐕"}, ambas:{n:"Las dos",e:"🐕🐶"} };
-
 const METODOS = ["Alfombra olfativa","Botella","Manta olfativa","Kong"];
-const PIPI_MIN = 60;
-const PIPI_DESDE = 8, PIPI_HASTA = 22;   // radar de pipí activo 8:00–22:00
-const AGUA_HORAS = 4;                     // recordatorio de agua cada 4 h
+
+const PIPI_MIN = 120;                 // alerta de pipí cada 2 horas
+const PIPI_DESDE = 8, PIPI_HASTA = 22;
+const AGUA_HORAS = 4;
+const APLAZO_MIN = 15;                // minutos que aplaza el botón "Ahora no"
 const DIAS = ["domingo","lunes","martes","miércoles","jueves","viernes","sábado"];
 
 const LUGARES_PIPI = [["sabanilla","Sabanilla"],["suelo","Suelo"],["afuera","Afuera / balcón"]];
 const LUGARES_CACA = [["sabanilla","Sabanilla"],["suelo","Suelo"],["balcon","Balcón / afuera"]];
-
+const LUGAR_TXT = { sabanilla:"sabanilla", suelo:"suelo", afuera:"afuera", balcon:"balcón", paseo:"paseo" };
 const LIMPIEZA = {
   "pipi-sabanilla": "🧻 <b>Botar la sabanilla</b> y poner una nueva.",
   "pipi-suelo": "🧽 1) Secar con toalla nova. 2) Aplicar <b>destructor de orina</b>. 3) <b>Esperar 15 minutos</b> (te aviso). 4) Secar de nuevo con toalla nova.",
   "pipi-afuera": "✅ ¡Bien Caluga! Nada que limpiar. Felicitarla 🎉",
   "caca-sabanilla": "🧻 Recoger AL TIRO y <b>botar la sabanilla</b> completa. Poner una nueva.",
-  "caca-suelo": "🧽 Recoger AL TIRO (water, poco papel). Limpiar con <b>toallitas de Clorox</b>. Si quedó olor, <b>abrir la ventana al menos 10 minutos</b> (puedes activar el aviso).",
+  "caca-suelo": "🧽 Recoger AL TIRO (water, poco papel). Limpiar con <b>toallitas de Clorox</b>. Si quedó olor, <b>abrir la ventana al menos 10 minutos</b>.",
   "caca-balcon": "✅ Recoger AL TIRO (water, poco papel) y limpiar la zona con <b>toallitas de Clorox</b>.",
 };
+const TIMER_DEFS = {
+  orina:    { min: 15, emoji: "🧴", nombre: "Destructor de orina", msjFin: "¡Pasaron los 15 min! Secar con toalla nova." },
+  ventilar: { min: 10, emoji: "🪟", nombre: "Ventilando", msjFin: "Pasaron 10 min: puedes cerrar la ventana." },
+};
 
-function radarActivo(d = new Date()) { const h = d.getHours(); return h >= PIPI_DESDE && h < PIPI_HASTA; }
-
-// ═══════════ ESTADO PERSISTENTE ═══════════
 function hoyKey(d = new Date()) {
   return d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
 }
 function lunesDeEstaSemana() {
-  const d = new Date();
-  d.setDate(d.getDate() - ((d.getDay() + 6) % 7));
-  return hoyKey(d);
+  const d = new Date(); d.setDate(d.getDate() - ((d.getDay() + 6) % 7)); return hoyKey(d);
 }
-// ═══════════ FIREBASE (sincronización entre teléfonos) ═══════════
+function minDeHora(h) { const [a,b] = h.split(":").map(Number); return a*60+b; }
+function minDeTs(ts) { const d = new Date(ts); return d.getHours()*60 + d.getMinutes(); }
+function minATexto(m) { m = Math.round(m); return String(Math.floor(m/60)).padStart(2,"0")+":"+String(m%60).padStart(2,"0"); }
+function fmt(mins){ const a=Math.abs(Math.round(mins)); if(a<60) return a+" min"; const h=Math.floor(a/60),m=a%60; return m===0?h+" h":h+" h "+m+" min"; }
+function horaTxt(ts){ const d=new Date(ts); return String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0"); }
+function radarActivo(d = new Date()) { const h = d.getHours(); return h >= PIPI_DESDE && h < PIPI_HASTA; }
+
+// ═══════════════════ FIREBASE + ESTADO ═══════════════════
 const firebaseConfig = {
   apiKey: "AIzaSyA3S4oMVrzszBVNVFVj7RdN8qWJrEGVnD0",
   authDomain: "pewitas-d89ea.firebaseapp.com",
@@ -330,15 +323,9 @@ const firebaseConfig = {
 let db = null;
 try { firebase.initializeApp(firebaseConfig); db = firebase.database(); } catch(e) { db = null; }
 
-function cargarLocal() {
-  try { const s = JSON.parse(localStorage.getItem("pewitas") || "{}"); return s && typeof s === "object" ? s : {}; }
-  catch(e) { return {}; }
-}
-
 const HOY = hoyKey();
-let S = cargarLocal();
-let D = null;
-let syncListo = false;
+let S = {}, D = null, syncListo = false;
+try { const l = JSON.parse(localStorage.getItem("pewitas") || "{}"); if (l && typeof l === "object") S = l; } catch(e) {}
 
 function asegurarEstructura() {
   const lunes = lunesDeEstaSemana();
@@ -346,10 +333,10 @@ function asegurarEstructura() {
   if (S.semanaInicio !== lunes) S = { semanaInicio: lunes, dias: {}, aguaUltima: 0, historial: S.historial || [] };
   if (!S.dias) S.dias = {};
   if (!S.aguaUltima) S.aguaUltima = 0;
-  if (!S.historial) S.historial = [];   // registros permanentes (NO se borran cada semana)
+  if (!S.historial) S.historial = [];         // permanente: no se borra cada semana
   if (!S.dias[HOY]) S.dias[HOY] = {};
   D = S.dias[HOY];
-  ["hechas","checks","cacasLisa","paseoCaluga","metodos"].forEach(k => { if(!D[k]) D[k] = {}; });
+  ["hechas","checks","cacasLisa","paseoCaluga","metodos","horasReales","aplazos"].forEach(k => { if(!D[k]) D[k] = {}; });
   if (!D.registros) D.registros = [];
   if (!D.timers) D.timers = [];
   if (!D.ultimaPipi) D.ultimaPipi = Date.now();
@@ -360,36 +347,24 @@ function guardar() {
   try { localStorage.setItem("pewitas", JSON.stringify(S)); } catch(e){}
   if (db && syncListo) db.ref("estado").set(S).catch(()=>{});
 }
-
 function conectarSync() {
   if (!db) { syncListo = true; return; }
   db.ref("estado").on("value", (snap) => {
-    const v = snap.val();
-    const primeraVez = !syncListo;
+    const v = snap.val(); const primera = !syncListo;
     if (v && typeof v === "object") S = v;
-    asegurarEstructura();
-    syncListo = true;
-    if (primeraVez && !v) guardar();   // primera vez: subir el estado local a la nube
+    asegurarEstructura(); syncListo = true;
+    if (primera && !v) guardar();
     try { localStorage.setItem("pewitas", JSON.stringify(S)); } catch(e){}
     render();
   }, () => { syncListo = true; render(); });
 }
 
-// notificaciones ya avisadas: locales de CADA teléfono (así todos reciben sus alertas)
 let NOTIF = {};
 try { const n = JSON.parse(localStorage.getItem("pewitas-notif") || "{}"); if (n.dia === HOY) NOTIF = n.claves || {}; } catch(e){}
-function notifMarcar(k) {
-  NOTIF[k] = true;
-  try { localStorage.setItem("pewitas-notif", JSON.stringify({ dia: HOY, claves: NOTIF })); } catch(e){}
-}
-function notifLimpiar(prefijo) {
-  Object.keys(NOTIF).forEach(k => { if (k.startsWith(prefijo)) delete NOTIF[k]; });
-  try { localStorage.setItem("pewitas-notif", JSON.stringify({ dia: HOY, claves: NOTIF })); } catch(e){}
-}
+function notifMarcar(k) { NOTIF[k] = true; try { localStorage.setItem("pewitas-notif", JSON.stringify({ dia: HOY, claves: NOTIF })); } catch(e){} }
+function notifLimpiar(p) { Object.keys(NOTIF).forEach(k => { if (k.startsWith(p)) delete NOTIF[k]; }); try { localStorage.setItem("pewitas-notif", JSON.stringify({ dia: HOY, claves: NOTIF })); } catch(e){} }
 
-let paseoAbierto = null, tabActual = "hoy", registroAbierto = null, instruccionActual = null;
-
-// ═══════════ NOTIFICACIONES ═══════════
+// ═══════════════════ NOTIFICACIONES ═══════════════════
 function pedirPermiso() {
   if (!("Notification" in window)) { alert("Este navegador no soporta notificaciones."); return; }
   Notification.requestPermission().then(revisarBanner);
@@ -402,430 +377,498 @@ function notificar(titulo, cuerpo, tag) {
   if (!("Notification" in window) || Notification.permission !== "granted") return;
   const opts = { body: cuerpo, icon: "icon-192.png", badge: "icon-192.png", tag: tag, vibrate:[200,100,200] };
   if (navigator.serviceWorker && navigator.serviceWorker.ready) {
-    navigator.serviceWorker.ready.then(reg => reg.showNotification(titulo, opts)).catch(() => { try { new Notification(titulo, opts); } catch(e){} });
+    navigator.serviceWorker.ready.then(r => r.showNotification(titulo, opts)).catch(()=>{ try{ new Notification(titulo,opts);}catch(e){} });
   } else { try { new Notification(titulo, opts); } catch(e){} }
 }
 
-// ═══════════ CICLO (cada 20 s) ═══════════
-function ciclo() {
-  const ahora = new Date();
-  const minAhora = ahora.getHours()*60 + ahora.getMinutes();
+// ═══════════════════ MODELO DE CACA ═══════════════════
+// Prior inicial (cachorra Corgi Pembroke, 4 meses, 5 kg, Biofresh 5 veces/día):
+// el reflejo gastrocólico dispara la caca ~5-30 min después de comer; el juego y el
+// movimiento del paseo también la estimulan. Con datos reales, cada señal aprende su
+// propia mediana a partir de 4 registros.
+const PRIOR = { despertar: 15, comida: 20, juego: 15, paseo: 10 };
+const VENTANA = { despertar: 60, comida: 90, juego: 45, paseo: 45 };
+const MIN_DATOS = 4;
 
-  // agenda
-  AGENDA.forEach(a => {
-    const [h,m] = a.hora.split(":").map(Number);
-    const minA = h*60+m;
-    if (minAhora >= minA && minAhora < minA + 3 && !D.hechas[a.id] && !NOTIF[a.id]) {
-      notifMarcar(a.id);
-      notificar(TIPOS[a.tipo].emoji + " " + a.hora + " · " + a.titulo, a.nota ? a.nota.slice(0,120) : "¡Es la hora!", a.id);
-    }
-  });
-
-  // agua cada 4 h (solo en horario despierto)
-  if (radarActivo(ahora)) {
-    const horasAgua = (Date.now() - S.aguaUltima) / 3600000;
-    if (horasAgua >= AGUA_HORAS) {
-      const clave = "agua-" + Math.floor(horasAgua);
-      if (!NOTIF[clave]) {
-        notifMarcar(clave);
-        notificar("💧 Agua de bidón", "¿Tienen agua las pewitas? Revisar y rellenar si falta.", "agua");
-      }
-    }
-  }
-
-  // timers de limpieza
-  let cambio = false;
-  D.timers.forEach(t => {
-    if (!t.avisado && Date.now() >= t.fin) {
-      t.avisado = true; cambio = true;
-      notificar(t.emoji + " " + t.nombre, t.msjFin, "timer-" + t.id);
-    }
-  });
-  if (cambio) guardar();
-
-  // radar caca: avisar 5 min antes de la hora predicha
-  if (radarActivo(ahora)) {
-    const pc = proximaCaca();
-    if (pc) {
-      const minAhoraC = minDeTs(Date.now());
-      const rest = pc.pred - minAhoraC;
-      if (minAhoraC >= pc.trigger && rest <= 5 && rest >= 0) {
-        const clave = "caca-" + pc.trigger;
-        if (!NOTIF[clave]) {
-          notifMarcar(clave);
-          notificar("💩 Caca probable de Caluga", "Se estima cerca de las " + minATexto(pc.pred) + ". ¡Tenerla en el balcón!", "caca");
-        }
-      }
-    }
-  }
-
-  // radar pipí (8–22)
-  if (radarActivo(ahora)) {
-    const hoy8 = new Date(); hoy8.setHours(PIPI_DESDE, 0, 0, 0);
-    if (D.ultimaPipi < hoy8.getTime()) { D.ultimaPipi = hoy8.getTime(); guardar(); }
-    const mins = Math.floor((Date.now() - D.ultimaPipi)/60000);
-    if (mins >= PIPI_MIN) {
-      const clave = "pipi-" + Math.floor(mins/15);
-      if (!NOTIF[clave]) {
-        notifMarcar(clave);
-        notificar("🚨 Pipí de Caluga", "Lleva " + mins + " min sin hacer pipí. ¡Al balcón!", "pipi");
-      }
-    }
-  }
-  render();
+function triggersDeAgenda() {
+  return AGENDA.filter(a => a.trigger).map(a => ({ id:a.id, tipo:a.trigger, min:minDeHora(a.hora), titulo:a.titulo }));
 }
-
-// ═══════════ HELPERS ═══════════
-function fmt(mins){ const a=Math.abs(mins); if(a<60) return a+" min"; const h=Math.floor(a/60),m=a%60; return m===0?h+" h":h+" h "+m+" min"; }
-function horaTxt(ts){ const d=new Date(ts); return String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0"); }
-function anotarEvento(tipo, lugar) {
-  const r = { t: Date.now(), tipo, lugar };
-  D.registros.push(r);
-  S.historial.push(r);
-  if (S.historial.length > 600) S.historial = S.historial.slice(-600);
-  if (tipo === "pipi") { D.ultimaPipi = Date.now(); notifLimpiar("pipi-"); }
-  if (tipo === "caca") notifLimpiar("caca-");
+// hora efectiva de hoy: la real si ya se marcó, si no la programada
+function triggersHoy() {
+  return triggersDeAgenda().map(t => {
+    const real = D.horasReales[t.id];
+    return { ...t, min: real ? minDeTs(real) : t.min, cumplido: !!real };
+  }).sort((a,b) => a.min - b.min);
 }
-
-// ═══════════ RADAR CACA (predicción) ═══════════
-// Modelo inicial (cachorra Corgi Pembroke, 4 meses, 5 kg, 5 comidas Biofresh/día):
-// el reflejo gastrocólico hace que los cachorros defequen ~5-30 min después de comer
-// (usamos 20 min como punto de partida) y también al despertar. Total típico: 3-5 al día.
-// Con >= 5 cacas registradas después de comidas, el modelo usa la mediana REAL de Caluga.
-const DELAY_PRIOR = 20;      // min después de comer (punto de partida)
-const VENTANA_CACA = 90;     // min tras la comida en que se considera "caca de esa comida"
-const DESPERTAR_MIN = 8*60 + 30;
-const COMIDAS_MIN = AGENDA.filter(a => a.comidaCaluga).map(a => {
-  const [h,m] = a.hora.split(":").map(Number); return h*60+m;
-});
-const TRIGGERS = [DESPERTAR_MIN, ...COMIDAS_MIN].sort((a,b)=>a-b);
-
-function minDeTs(ts) { const d = new Date(ts); return d.getHours()*60 + d.getMinutes(); }
-
+// aprende de TODO el historial: asocia cada caca a la señal previa más cercana
 function modeloCaca() {
-  const delays = [];
+  const base = triggersDeAgenda();
+  const datos = { despertar:[], comida:[], juego:[], paseo:[] };
   (S.historial || []).filter(r => r.tipo === "caca").forEach(r => {
-    const min = minDeTs(r.t);
+    const m = minDeTs(r.t);
     let mejor = null;
-    TRIGGERS.forEach(tr => {
-      const diff = min - tr;
-      if (diff >= 0 && diff <= VENTANA_CACA && (mejor === null || diff < mejor)) mejor = diff;
+    base.forEach(t => {
+      const dif = m - t.min;
+      if (dif >= 0 && dif <= VENTANA[t.tipo] && (!mejor || dif < mejor.dif)) mejor = { dif, tipo: t.tipo };
     });
-    if (mejor !== null) delays.push(mejor);
+    if (mejor) datos[mejor.tipo].push(mejor.dif);
   });
-  if (delays.length >= 5) {
-    delays.sort((a,b)=>a-b);
-    return { delay: delays[Math.floor(delays.length/2)], n: delays.length };
-  }
-  return { delay: DELAY_PRIOR, n: delays.length };
+  const delays = {}, n = {};
+  Object.keys(PRIOR).forEach(k => {
+    const arr = datos[k].sort((a,b)=>a-b);
+    n[k] = arr.length;
+    delays[k] = arr.length >= MIN_DATOS ? arr[Math.floor(arr.length/2)] : PRIOR[k];
+  });
+  const total = Object.values(n).reduce((a,b)=>a+b,0);
+  return { delays, n, total, aprendiendo: Object.keys(PRIOR).filter(k => n[k] < MIN_DATOS) };
 }
-
 function proximaCaca() {
-  const { delay, n } = modeloCaca();
-  const minAhora = minDeTs(Date.now());
-  const cacasHoy = (D.registros || []).filter(r => r.tipo === "caca");
-  for (const tr of TRIGGERS) {
-    if (minAhora > tr + VENTANA_CACA) continue;              // ventana ya cerrada
-    const yaHizo = cacasHoy.some(r => { const m = minDeTs(r.t); return m >= tr && m <= tr + VENTANA_CACA; });
-    if (yaHizo) continue;                                     // esa comida ya "produjo"
-    return { pred: tr + delay, trigger: tr, delay, n };
+  const { delays } = modeloCaca();
+  const ahoraMin = minDeTs(Date.now());
+  const cacasHoy = (D.registros || []).filter(r => r.tipo === "caca").map(r => minDeTs(r.t));
+  for (const t of triggersHoy()) {
+    if (ahoraMin > t.min + VENTANA[t.tipo]) continue;
+    if (cacasHoy.some(m => m >= t.min && m <= t.min + VENTANA[t.tipo])) continue;
+    return { pred: t.min + delays[t.tipo], trigger: t, delay: delays[t.tipo] };
   }
   return null;
 }
 
-function minATexto(min) {
-  return String(Math.floor(min/60)).padStart(2,"0") + ":" + String(min%60).padStart(2,"0");
+// ═══════════════════ ALERTAS ═══════════════════
+function aplazado(id) { return D.aplazos[id] && Date.now() < D.aplazos[id]; }
+function aplazar(id) { D.aplazos[id] = Date.now() + APLAZO_MIN*60000; notifLimpiar(id); guardar(); render(); }
+
+function alertasActivas() {
+  const out = [];
+  const ahora = new Date(), ahoraMin = ahora.getHours()*60 + ahora.getMinutes();
+
+  // 1) actividades de la agenda cuya hora ya llegó
+  AGENDA.forEach(a => {
+    if (D.hechas[a.id] || aplazado(a.id)) return;
+    const m = minDeHora(a.hora);
+    if (ahoraMin < m) return;
+    const t = TIPOS[a.tipo];
+    out.push({
+      id: a.id, clase: "a-" + a.tipo, emoji: t.emoji, msj: a.msj,
+      sub: "Tocaba a las " + a.hora + " · atrasado " + fmt(ahoraMin - m),
+      color: t.color, btn: a.paseo ? "Abrir paseo ✔" : "¡Listo! ✔",
+      accion: a.paseo ? `irAPaseo('${a.id}')` : `marcarDesdeAlerta('${a.id}')`,
+      atraso: ahoraMin - m,
+    });
+  });
+
+  if (radarActivo(ahora)) {
+    // 2) pipí (cada 2 h)
+    const minsPipi = Math.floor((Date.now() - D.ultimaPipi)/60000);
+    if (minsPipi >= PIPI_MIN && !aplazado("pipi")) {
+      out.push({
+        id: "pipi", clase: "a-pipi", emoji: "💧", msj: "Necesito hacer pipí, ¿me llevas al balcón? 🥺",
+        sub: "Llevo " + fmt(minsPipi) + " sin ir (toca cada 2 h)",
+        color: "#E2604C", btn: "Registrar pipí 💧", accion: "abrirRegistro('pipi')", atraso: minsPipi - PIPI_MIN,
+      });
+    }
+    // 3) caca (según el modelo)
+    const pc = proximaCaca();
+    if (pc && !aplazado("caca")) {
+      const rest = pc.pred - ahoraMin;
+      if (pc.trigger.min <= ahoraMin && rest <= 0) {
+        out.push({
+          id: "caca", clase: "a-caca", emoji: "💩", msj: "Creo que me viene caca... ¡al balcón porfa! 😬",
+          sub: "Estimada ~" + minATexto(pc.pred) + " · tras " + pc.trigger.titulo.toLowerCase(),
+          color: "#C97A4A", btn: "Registrar caca 💩", accion: "abrirRegistro('caca')", atraso: -rest,
+        });
+      }
+    }
+    // 4) agua
+    const horasAgua = (Date.now() - S.aguaUltima)/3600000;
+    if (horasAgua >= AGUA_HORAS && !aplazado("agua")) {
+      out.push({
+        id: "agua", clase: "a-agua", emoji: "💧", msj: "¿Nos revisas el agua del bidón? 🥺",
+        sub: S.aguaUltima ? "Última revisión hace " + fmt(horasAgua*60) : "Aún no se revisa hoy",
+        color: "#6D8FD4", btn: "Está OK / la rellené ✔", accion: "aguaOk()", atraso: (horasAgua - AGUA_HORAS)*60,
+      });
+    }
+  }
+  return out.sort((a,b) => b.atraso - a.atraso);
 }
 
-function renderRadarCaca() {
-  const el = document.getElementById("radarCaca");
-  if (!radarActivo()) { el.innerHTML = ""; return; }
-  const p = proximaCaca();
-  const { n } = modeloCaca();
-  const base = n >= 5
-    ? "aprendido de " + n + " cacas registradas de Caluga"
-    : "según lo típico para una cachorra de 4 meses" + (n > 0 ? " (aprendiendo: " + n + "/5 registros)" : "");
-  const cacasHoy = (D.registros || []).filter(r => r.tipo === "caca").length;
-  if (!p) {
-    el.innerHTML = `<div class="radar ok" style="background:#FBEBDF;border-color:#C97A4A">
-      <div class="emoji">💩</div><div style="flex:1">
-      <div class="label">Radar caca de Caluga</div>
-      <div class="main">Sin caca a la vista por ahora</div>
-      <div class="sub">Hoy lleva ${cacasHoy} (lo normal: 3 a 5 al día) · la próxima ventana se abre con la próxima comida</div></div></div>`;
+function renderAlertas() {
+  const el = document.getElementById("alertas");
+  const lista = alertasActivas();
+  if (!lista.length) {
+    const pend = AGENDA.filter(a => !D.hechas[a.id]).length;
+    el.innerHTML = `<div class="sin-alertas"><div class="t">✅ Todo al día</div>
+      <div class="s">${pend ? "Sin alertas ahora · quedan " + pend + " actividades más tarde" : "¡Día completo! Las pewitas están felices 🐾"}</div></div>`;
     return;
   }
-  const minAhora = minDeTs(Date.now());
-  const rest = p.pred - minAhora;
-  const comio = minAhora >= p.trigger;
-  let modo, emoji, main;
-  if (comio && rest <= 0) {
-    modo = "atrasado"; emoji = "🔥";
-    main = "¡Ventana caliente! Puede ser en cualquier momento — al balcón";
-  } else if (comio) {
-    modo = "pronto"; emoji = "💩";
-    main = "Caca en camino: probable a las ~" + minATexto(p.pred) + " (en " + fmt(rest) + ")";
-  } else {
-    modo = "ok"; emoji = "💩";
-    main = "Próxima caca probable: ~" + minATexto(p.pred) + " (tras la comida de las " + minATexto(p.trigger) + ")";
-  }
-  el.innerHTML = `<div class="radar ${modo}" style="${modo==="ok"?"background:#FBEBDF;border-color:#C97A4A":""}">
-    <div class="emoji">${emoji}</div><div style="flex:1">
-    <div class="label">Radar caca de Caluga · hoy lleva ${cacasHoy}</div>
-    <div class="main">${main}</div>
-    <div class="sub">${base} · anótala abajo cuando haga 👇</div></div></div>`;
+  el.innerHTML = lista.map(a => `
+    <div class="alerta ${a.clase}">
+      <div class="top"><div class="emoji">${a.emoji}</div>
+        <div style="flex:1"><div class="msj">${a.msj}</div><div class="sub">${a.sub}</div></div></div>
+      <div class="btns">
+        <button class="principal" style="background:${a.color}" onclick="${a.accion}">${a.btn}</button>
+        <button class="aplazar" onclick="aplazar('${a.id}')">Ahora no · ${APLAZO_MIN} min</button>
+      </div>
+    </div>`).join("");
 }
 
-// ═══════════ RADAR PIPÍ ═══════════
-function renderRadar() {
-  const el = document.getElementById("radar");
-  if (!radarActivo()) {
-    el.innerHTML = `<div class="radar noche"><div class="emoji">🌙</div><div style="flex:1">
-      <div class="label">Radar pipí de Caluga · activo de 8:00 a 22:00</div>
-      <div class="main">Modo noche — sin alertas</div>
-      <div class="sub">El contador parte de nuevo a las 8:00</div></div></div>`;
-    return;
-  }
-  const mins = Math.floor((Date.now() - D.ultimaPipi)/60000);
-  const rest = PIPI_MIN - mins;
-  const modo = rest < 0 ? "atrasado" : rest <= 10 ? "pronto" : "ok";
-  const emoji = modo==="atrasado"?"🚨":modo==="pronto"?"⏰":"🐾";
-  const main = modo==="atrasado" ? "¡Ya pasó! Lleva "+fmt(mins)+" sin ir — al balcón"
-             : modo==="pronto" ? "Le toca en ~"+fmt(rest)+" — prepararse"
-             : "Próxima pipí en ~"+fmt(rest);
-  el.innerHTML = `<div class="radar ${modo}"><div class="emoji">${emoji}</div><div style="flex:1">
-    <div class="label">Radar pipí de Caluga · cada ~1 hora</div>
-    <div class="main">${main}</div>
-    <div class="sub">Última pipí hace ${fmt(mins)} · anótala abajo cuando haga 👇</div></div></div>`;
-}
+// ═══════════════════ CHIPS MINIMIZADOS ═══════════════════
+let chipAbierto = null;
+function verChip(c) { chipAbierto = (chipAbierto === c ? null : c); render(); }
 
-// ═══════════ AGUA ═══════════
-function renderAgua() {
-  const el = document.getElementById("agua");
-  const horas = (Date.now() - S.aguaUltima) / 3600000;
-  const toca = horas >= AGUA_HORAS;
-  const sub = S.aguaUltima === 0 ? "Aún no se revisa hoy"
-    : toca ? "Última revisión hace " + fmt(Math.floor(horas*60))
-    : "Próxima revisión en ~" + fmt(Math.ceil((AGUA_HORAS - horas)*60));
-  el.innerHTML = `<div class="agua-card ${toca ? "toca" : "ok"}">
-    <div class="emoji">💧</div>
-    <div style="flex:1"><div class="main">${toca ? "¿Tienen agua de bidón?" : "Agua revisada ✔"}</div>
-    <div class="sub">${sub}</div></div>
-    <button onclick="aguaOk()">${toca ? "Está OK / la rellené ✔" : "Revisé de nuevo ✔"}</button></div>`;
-}
-function aguaOk() {
-  S.aguaUltima = Date.now();
-  notifLimpiar("agua-");
-  guardar(); render();
-}
+function renderChips() {
+  const el = document.getElementById("chipsEstado");
+  const det = document.getElementById("chipDetalle");
+  const noche = !radarActivo();
+  const minsPipi = Math.floor((Date.now() - D.ultimaPipi)/60000);
+  const restPipi = PIPI_MIN - minsPipi;
+  const pc = proximaCaca();
+  const horasAgua = (Date.now() - S.aguaUltima)/3600000;
+  const cacasHoy = (D.registros||[]).filter(r=>r.tipo==="caca").length;
+  const pipisHoy = (D.registros||[]).filter(r=>r.tipo==="pipi").length;
 
-// ═══════════ REGISTRO RÁPIDO ═══════════
-function abrirRegistro(tipo) {
-  registroAbierto = (registroAbierto === tipo ? null : tipo);
-  instruccionActual = null;
-  render();
-}
-function renderRegistro() {
-  const el = document.getElementById("regDetalle");
-  if (!registroAbierto && !instruccionActual) { el.innerHTML = ""; renderTimers(); return; }
+  const chips = [
+    { c:"pipi", txt: noche ? "💧 Pipí · noche 🌙" : (restPipi > 0 ? "💧 Pipí en " + fmt(restPipi) : "💧 Pipí pendiente"), on: !noche && restPipi <= 0 },
+    { c:"caca", txt: noche ? "💩 Caca · noche 🌙" : (pc ? "💩 ~" + minATexto(pc.pred) : "💩 sin ventana"), on: false },
+    { c:"agua", txt: horasAgua >= AGUA_HORAS ? "🚰 Agua pendiente" : "🚰 Agua ok", on: horasAgua >= AGUA_HORAS },
+  ];
+  el.innerHTML = chips.map(c => `<button class="chip-e ${c.on?"alerta-on":""}" onclick="verChip('${c.c}')">${c.txt}</button>`).join("");
+
+  if (!chipAbierto) { det.innerHTML = ""; return; }
   let h = "";
+  if (chipAbierto === "pipi") {
+    h = `<div class="chip-detalle"><b>💧 Pipí de Caluga</b> · hoy lleva ${pipisHoy}<br>
+      ${noche ? "Modo noche (8:00–22:00 activo). El contador parte de nuevo a las 8:00."
+              : "Última pipí hace " + fmt(minsPipi) + ". Aviso cada 2 horas."}
+      <div class="acc"><button onclick="abrirRegistro('pipi')">Registrar pipí 💧</button></div></div>`;
+  } else if (chipAbierto === "caca") {
+    const m = modeloCaca();
+    const base = m.total >= MIN_DATOS
+      ? "Aprendido de " + m.total + " cacas registradas de Caluga."
+      : "Aún usando lo típico de una cachorra de 4 meses (van " + m.total + " registros).";
+    h = `<div class="chip-detalle"><b>💩 Caca de Caluga</b> · hoy lleva ${cacasHoy} (normal: 3 a 5 al día)<br>
+      ${pc ? "Próxima estimada ~<b>" + minATexto(pc.pred) + "</b>, unos " + pc.delay + " min después de " + pc.trigger.titulo.toLowerCase() + "."
+           : "Sin ventana activa: la próxima se abre con la siguiente comida, juego o paseo."}<br>
+      <span style="font-size:12.5px">${base}</span>
+      <div class="acc"><button onclick="abrirRegistro('caca')">Registrar caca 💩</button></div></div>`;
+  } else if (chipAbierto === "agua") {
+    h = `<div class="chip-detalle"><b>🚰 Agua de bidón</b><br>
+      ${S.aguaUltima ? "Última revisión hace " + fmt(horasAgua*60) + "." : "Aún no se revisa hoy."}
+      Se vuelve a preguntar cada ${AGUA_HORAS} horas.
+      <div class="acc"><button onclick="aguaOk()">Está OK / la rellené ✔</button></div></div>`;
+  }
+  det.innerHTML = h;
+}
+
+// ═══════════════════ ACORDEONES ═══════════════════
+let abierto = { registro:false, agenda:true, semana:false, modelo:false, reglas:false };
+function toggleSec(k) { abierto[k] = !abierto[k]; render(); }
+
+function renderSecciones() {
+  const nHechas = AGENDA.filter(a=>D.hechas[a.id]).length;
+  const secs = [
+    { k:"registro", ico:"📝", tit:"Registro y limpieza", extra:"", cont: contRegistro() },
+    { k:"agenda",   ico:"📋", tit:"Agenda del día", extra:nHechas+"/"+AGENDA.length, cont: contAgenda() },
+    { k:"semana",   ico:"🗓", tit:"Resumen semanal", extra:"", cont: contSemana() },
+    { k:"modelo",   ico:"🔮", tit:"Predicción de caca", extra:"", cont: contModelo() },
+    { k:"reglas",   ico:"📌", tit:"Reglas de oro", extra:"", cont: contReglas() },
+  ];
+  document.getElementById("secciones").innerHTML = secs.map(s => `
+    <div class="acc-sec">
+      <button class="acc-head" onclick="toggleSec('${s.k}')">
+        <span>${s.ico}</span><span>${s.tit}</span>
+        ${s.extra ? `<span class="contador">${s.extra}</span>` : ""}
+        <span class="flecha">${abierto[s.k] ? "▲" : "▼"}</span>
+      </button>
+      ${abierto[s.k] ? `<div class="acc-body">${s.cont}</div>` : ""}
+    </div>`).join("");
+}
+
+// ── Registro rápido ──
+let registroAbierto = null, instruccionActual = null, horaRegistro = null;
+function abrirRegistro(tipo) {
+  registroAbierto = tipo; instruccionActual = null; abierto.registro = true; chipAbierto = null;
+  horaRegistro = horaTxt(Date.now());
+  render();
+  const el = document.getElementById("secciones"); if (el) el.scrollIntoView({behavior:"smooth", block:"start"});
+}
+function setHoraRegistro(v) { horaRegistro = v; }
+function contRegistro() {
+  let h = `<div class="reg-botones">
+    <button onclick="abrirRegistro('pipi')">💧 Hizo pipí</button>
+    <button onclick="abrirRegistro('caca')">💩 Hizo caca</button></div>`;
   if (registroAbierto) {
+    h += `<div class="pregunta">🕐 ¿A qué hora fue?</div>
+      <div class="hora-edit"><input type="time" value="${horaRegistro||horaTxt(Date.now())}" onchange="setHoraRegistro(this.value)">
+      <span style="font-size:12.5px;color:#7A6A5C">Déjala así si fue recién</span></div>`;
     const lugares = registroAbierto === "pipi" ? LUGARES_PIPI : LUGARES_CACA;
-    h += `<div class="reg-lugares"><div class="pregunta">${registroAbierto==="pipi"?"💧 ¿Dónde hizo pipí?":"💩 ¿Dónde hizo caca?"}</div><div class="chips">`;
+    h += `<div class="pregunta">${registroAbierto==="pipi"?"💧 ¿Dónde hizo pipí?":"💩 ¿Dónde hizo caca?"}</div><div class="chips">`;
     lugares.forEach(([v,l]) => { h += `<button onclick="registrar('${registroAbierto}','${v}')">${l}</button>`; });
-    h += `</div></div>`;
+    h += `</div>`;
   }
   if (instruccionActual) {
-    h += `<div class="instruccion">${LIMPIEZA[instruccionActual.clave]}`;
-    if (instruccionActual.clave === "caca-suelo") {
-      h += `<br><button class="btn-paseo" style="margin-top:8px" onclick="iniciarTimer('ventilar')">Activar aviso de ventilar (10 min) 🪟</button>`;
-    }
+    h += `<div class="instruccion">${LIMPIEZA[instruccionActual]}`;
+    if (instruccionActual === "caca-suelo") h += `<br><button class="btn-paseo" style="margin-top:8px" onclick="iniciarTimer('ventilar')">Activar aviso de ventilar (10 min) 🪟</button>`;
     h += `<br><button class="btn-paseo" style="margin-top:8px;border-color:#C9BCA9;color:#7A6A5C" onclick="cerrarInstruccion()">Entendido ✔</button></div>`;
   }
-  el.innerHTML = h;
-  renderTimers();
+  const activos = (D.timers||[]).filter(t => !t.avisado || Date.now() - t.fin < 30*60000);
+  activos.forEach(t => {
+    const rest = Math.ceil((t.fin - Date.now())/60000);
+    h += rest > 0
+      ? `<div class="timer-chip">${t.emoji} ${t.nombre}: quedan ${rest} min <button class="quitar" onclick="quitarTimer(${t.id})">✕</button></div>`
+      : `<div class="timer-chip listo">${t.emoji} ${t.nombre}: ¡listo! ${t.msjFin} <button class="quitar" onclick="quitarTimer(${t.id})">✕</button></div>`;
+  });
+  // ── lista editable de lo registrado hoy ──
+  const regs = (D.registros||[]).slice().sort((a,b)=>a.t-b.t);
+  h += `<div class="pregunta">📋 Registrado hoy ${regs.length ? "(toca la hora para corregirla)" : ""}</div>`;
+  if (!regs.length) h += `<div class="vacio" style="padding:10px 0">Todavía sin registros hoy.</div>`;
+  regs.forEach(r => {
+    h += `<div class="ev-fila">
+      <span>${r.tipo === "pipi" ? "💧" : "💩"}</span>
+      <input type="time" value="${horaTxt(r.t)}" onchange="setHoraEvento('${r.id}', this.value)">
+      <span class="ev-lugar">${LUGAR_TXT[r.lugar] || r.lugar}</span>
+      <button class="ev-borrar" onclick="borrarEvento('${r.id}')">✕</button></div>`;
+  });
+  return h;
+}
+function tsDeHoraHoy(hhmm) {
+  const [h,m] = hhmm.split(":").map(Number);
+  const d = new Date(); d.setHours(h, m, 0, 0); return d.getTime();
+}
+function anotarEvento(tipo, lugar, ts) {
+  const r = { id: String(Date.now()) + "-" + Math.floor(Math.random()*1000), t: ts || Date.now(), tipo, lugar };
+  D.registros.push(r); S.historial.push({ ...r });
+  if (S.historial.length > 800) S.historial = S.historial.slice(-800);
+  if (tipo === "pipi") { recalcUltimaPipi(); notifLimpiar("pipi"); delete D.aplazos["pipi"]; }
+  if (tipo === "caca") { notifLimpiar("caca"); delete D.aplazos["caca"]; }
+}
+function recalcUltimaPipi() {
+  const pipis = (D.registros||[]).filter(r => r.tipo === "pipi").map(r => r.t);
+  if (pipis.length) D.ultimaPipi = Math.max(...pipis);
+}
+function setHoraEvento(id, hhmm) {
+  if (!hhmm) return;
+  const ts = tsDeHoraHoy(hhmm);
+  const r = (D.registros||[]).find(x => x.id === id); if (r) r.t = ts;
+  const hh = (S.historial||[]).find(x => x.id === id); if (hh) hh.t = ts;
+  recalcUltimaPipi(); guardar(); render();
+}
+function borrarEvento(id) {
+  D.registros = (D.registros||[]).filter(x => x.id !== id);
+  S.historial = (S.historial||[]).filter(x => x.id !== id);
+  recalcUltimaPipi(); guardar(); render();
+}
+function setHoraActividad(id, hhmm) {
+  if (!hhmm) return;
+  D.horasReales[id] = tsDeHoraHoy(hhmm); D.hechas[id] = true;
+  guardar(); render();
 }
 function registrar(tipo, lugar) {
-  anotarEvento(tipo, lugar);
-  registroAbierto = null;
-  instruccionActual = { clave: tipo + "-" + lugar };
+  anotarEvento(tipo, lugar, horaRegistro ? tsDeHoraHoy(horaRegistro) : Date.now());
+  registroAbierto = null; horaRegistro = null; instruccionActual = tipo + "-" + lugar;
   if (tipo === "pipi" && lugar === "suelo") iniciarTimer("orina");
   guardar(); render();
 }
 function cerrarInstruccion() { instruccionActual = null; render(); }
-
-// ═══════════ TIMERS DE LIMPIEZA ═══════════
-const TIMER_DEFS = {
-  orina:    { min: 15, emoji: "🧴", nombre: "Destructor de orina", msjFin: "¡Pasaron los 15 min! Secar con toalla nova." },
-  ventilar: { min: 10, emoji: "🪟", nombre: "Ventilando", msjFin: "Pasaron 10 min: puedes cerrar la ventana." },
-};
 function iniciarTimer(clave) {
-  const def = TIMER_DEFS[clave];
-  D.timers.push({ id: Date.now(), clave, emoji: def.emoji, nombre: def.nombre, msjFin: def.msjFin, fin: Date.now() + def.min*60000, avisado: false });
+  const d = TIMER_DEFS[clave];
+  D.timers.push({ id: Date.now(), clave, emoji:d.emoji, nombre:d.nombre, msjFin:d.msjFin, fin: Date.now()+d.min*60000, avisado:false });
   guardar(); render();
 }
 function quitarTimer(id) { D.timers = D.timers.filter(t => t.id !== id); guardar(); render(); }
-function renderTimers() {
-  const el = document.getElementById("timers");
-  const activos = D.timers.filter(t => !t.avisado || Date.now() - t.fin < 30*60000);
-  if (!activos.length) { el.innerHTML = ""; return; }
-  let h = "";
-  activos.forEach(t => {
-    const rest = Math.ceil((t.fin - Date.now())/60000);
-    if (rest > 0) h += `<div class="timer-chip">${t.emoji} ${t.nombre}: quedan ${rest} min <button class="quitar" onclick="quitarTimer(${t.id})">✕</button></div>`;
-    else h += `<div class="timer-chip listo">${t.emoji} ${t.nombre}: ¡listo! ${t.msjFin} <button class="quitar" onclick="quitarTimer(${t.id})">✕</button></div>`;
-  });
-  el.innerHTML = h;
-}
 
-// ═══════════ TIMELINE ═══════════
-function renderTimeline() {
-  const ahora = new Date();
-  const minAhora = ahora.getHours()*60 + ahora.getMinutes();
-  let html = "";
+// ── Agenda ──
+let paseoAbierto = null;
+function contAgenda() {
+  const nHechas = AGENDA.filter(a=>D.hechas[a.id]).length;
+  const ahoraMin = minDeTs(Date.now());
+  let h = `<div class="progreso"><div class="barra"><div style="width:${nHechas/AGENDA.length*100}%"></div></div>
+    <span>${nHechas}/${AGENDA.length}</span></div><div class="timeline">`;
   AGENDA.forEach(a => {
     const t = TIPOS[a.tipo], p = PERROS[a.perro];
     const hecha = !!D.hechas[a.id];
-    const [h,m] = a.hora.split(":").map(Number);
-    const pasada = h*60+m < minAhora;
-    html += `<div class="item">
+    const pasada = minDeHora(a.hora) < ahoraMin;
+    h += `<div class="item">
       <div class="punto${hecha?" hecha":""}" style="border-color:${t.color}">${hecha?"✓":""}</div>
       <div class="card${hecha?" hecha":""}" style="background:${t.bg}">
       <div class="fila" onclick="${a.paseo?`abrirPaseo('${a.id}')`:`toggle('${a.id}')`}">
-      <span class="hora" style="color:${t.color}">${a.hora}</span>
-      <span>${t.emoji}</span><span class="titulo">${a.titulo}</span>
-      <span class="chip">${p.e} ${p.n}</span></div>`;
-    if (a.nota) html += `<div class="nota">${a.nota}</div>`;
-    if (a.comidaCaluga) html += renderMetodo(a);
-    if (a.paseo) html += renderPaseo(a);
-    if (pasada && !hecha) html += `<div class="atraso">⚠ Pendiente — tocaba a las ${a.hora}</div>`;
-    html += `</div></div>`;
+        <span class="hora" style="color:${t.color}">${a.hora}</span><span>${t.emoji}</span>
+        <span class="titulo">${a.titulo}</span><span class="chip">${p.e} ${p.n}</span></div>`;
+    if (a.nota) h += `<div class="nota">${a.nota}</div>`;
+    if (a.comidaCaluga) h += contMetodo(a);
+    if (a.paseo) h += contPaseo(a);
+    if (hecha) h += `<div class="hora-edit" style="margin-top:6px">
+      <span style="font-size:12.5px;font-weight:800;color:#5C8043">✔ Hecho a las</span>
+      <input type="time" value="${horaTxt(D.horasReales[a.id] || Date.now())}" onchange="setHoraActividad('${a.id}', this.value)"></div>`;
+    if (pasada && !hecha) h += `<div class="atraso">⚠ Pendiente — tocaba a las ${a.hora}</div>`;
+    h += `</div></div>`;
   });
-  document.getElementById("timeline").innerHTML = html;
-  const n = AGENDA.filter(a=>D.hechas[a.id]).length;
-  document.getElementById("barraFill").style.width = (n/AGENDA.length*100)+"%";
-  document.getElementById("progresoTxt").textContent = n+"/"+AGENDA.length;
+  return h + `</div>`;
 }
+function toggle(id) {
+  D.hechas[id] = !D.hechas[id];
+  if (D.hechas[id]) { D.horasReales[id] = Date.now(); delete D.aplazos[id]; notifLimpiar(id); }
+  else delete D.horasReales[id];
+  guardar(); render();
+}
+function marcarDesdeAlerta(id) { toggle(id); }
+function irAPaseo(id) { abierto.agenda = true; paseoAbierto = id; render();
+  const el = document.getElementById("secciones"); if (el) el.scrollIntoView({behavior:"smooth", block:"start"}); }
 
-// ═══════════ MÉTODO DE COMIDA DE CALUGA ═══════════
-function kongUsadoHoy(excepto) {
-  return Object.entries(D.metodos).some(([id, m]) => m === "Kong" && id !== excepto);
-}
-function renderMetodo(a) {
+function kongUsadoHoy(excepto) { return Object.entries(D.metodos).some(([id,m]) => m === "Kong" && id !== excepto); }
+function contMetodo(a) {
   const sel = D.metodos[a.id];
   let h = `<div class="metodo"><div class="pregunta">🐶 ¿Cómo come Caluga? (preferir en este orden)</div><div class="chips">`;
   METODOS.forEach(m => {
-    const esSel = sel === m;
-    const kongBloqueado = m === "Kong" && kongUsadoHoy(a.id);
-    const col = esSel ? "#C96FA0" : kongBloqueado ? "#C9BCA9" : "#7A6A5C";
-    h += `<button style="border-color:${col};color:${esSel?"#fff":col};background:${esSel?"#C96FA0":"#fff"}"
-      onclick="setMetodo('${a.id}','${m}')">${m}${kongBloqueado?" 🚫":""}</button>`;
+    const es = sel === m, bloq = m === "Kong" && kongUsadoHoy(a.id);
+    const col = es ? "#C96FA0" : bloq ? "#C9BCA9" : "#7A6A5C";
+    h += `<button style="border-color:${col};color:${es?"#fff":col};background:${es?"#C96FA0":"#fff"}" onclick="setMetodo('${a.id}','${m}')">${m}${bloq?" 🚫":""}</button>`;
   });
   h += `</div>`;
-  if (sel === "Kong" && kongUsadoHoy(a.id)) {
-    h += `<div class="aviso-kong">⚠ El Kong ya se usó hoy en otra comida — mejor cambiar (se le hace demasiado fácil).</div>`;
-  } else if (kongUsadoHoy(null) && !sel) {
-    h += `<div class="aviso-kong" style="color:#8A6A50">Kong ya usado hoy ✔ — elegir otra opción.</div>`;
-  }
-  h += `</div>`;
-  return h;
+  if (sel === "Kong" && kongUsadoHoy(a.id)) h += `<div class="aviso-kong">⚠ El Kong ya se usó hoy — mejor cambiar (se le hace demasiado fácil).</div>`;
+  else if (kongUsadoHoy(null) && !sel) h += `<div class="aviso-kong" style="color:#8A6A50">Kong ya usado hoy ✔ — elegir otra opción.</div>`;
+  return h + `</div>`;
 }
-function setMetodo(id, m) { D.metodos[id] = (D.metodos[id] === m ? undefined : m); guardar(); render(); }
+function setMetodo(id,m) { D.metodos[id] = (D.metodos[id] === m ? undefined : m); guardar(); render(); }
 
-// ═══════════ PASEOS ═══════════
-function renderPaseo(a) {
-  const caca = D.cacasLisa[a.id];
-  const pc = D.paseoCaluga[a.id] || {};
+function contPaseo(a) {
+  const caca = D.cacasLisa[a.id], pc = D.paseoCaluga[a.id] || {};
   if (paseoAbierto !== a.id) {
-    const resumen = [];
-    if (caca) resumen.push("Lisa ✔");
-    if (pc.pipi || pc.caca) resumen.push("Caluga ✔");
-    return `<button class="btn-paseo" onclick="abrirPaseo('${a.id}')">Abrir checklist del paseo${resumen.length?" · "+resumen.join(" "):""}</button>`;
+    const r = []; if (caca) r.push("Lisa ✔"); if (pc.pipi || pc.caca) r.push("Caluga ✔");
+    return `<button class="btn-paseo" onclick="abrirPaseo('${a.id}')">Abrir checklist del paseo${r.length?" · "+r.join(" "):""}</button>`;
   }
   let h = `<div class="detalle"><h4>ANTES DE SALIR</h4>`;
   CHECK_PRE.forEach((c,i)=>{ const k=a.id+"-pre-"+i;
     h += `<label><input type="checkbox" ${D.checks[k]?"checked":""} onchange="toggleCheck('${k}')"><span class="${D.checks[k]?"tachado":""}">${c}</span></label>`; });
   h += `<h4>DURANTE</h4><div class="durante">🐶 Premiar a Caluga (1 pellet) después de que interactúe con perritos. Vigilar que <b>no coma nada</b> del suelo, pero dejarla olfatear. 🐕 Lisa hace pipí y caca solo acá.</div>`;
-
   h += `<h4>💩 ¿LISA HIZO CACA?</h4><div class="chips">`;
   [["no","No hizo","#9A8A78"],["normal","Sí, normal","#6E9A4E"],["blanda","Sí, blanda ⚠️","#E2604C"]].forEach(([v,l,c])=>{
-    const s = caca===v;
-    h += `<button style="border-color:${c};color:${s?"#fff":c};background:${s?c:"#fff"}" onclick="setCacaLisa('${a.id}','${v}')">${l}</button>`; });
+    const s = caca===v; h += `<button style="border-color:${c};color:${s?"#fff":c};background:${s?c:"#fff"}" onclick="setCacaLisa('${a.id}','${v}')">${l}</button>`; });
   h += `</div>`;
   if (caca==="blanda") h += `<div class="alerta-blanda">Anotado. Si se repite en el próximo paseo, avisarle a Pía 📞</div>`;
-
   h += `<h4>🐶 ¿CALUGA HIZO EN EL PASEO?</h4><div class="chips">`;
   [["pipi","💧 Pipí","#4E9BB8"],["caca","💩 Caca","#C97A4A"]].forEach(([v,l,c])=>{
-    const s = !!pc[v];
-    h += `<button style="border-color:${c};color:${s?"#fff":c};background:${s?c:"#fff"}" onclick="togglePaseoCaluga('${a.id}','${v}')">${l}${s?" ✔":""}</button>`; });
-  h += `</div><div class="durante" style="margin-top:5px">Si hizo caca: recogerla con bolsa 💩. Marcarlo acá también reinicia el radar de pipí.</div>`;
-
-  h += `<h4>AL VOLVER</h4>`;
+    const s = !!pc[v]; h += `<button style="border-color:${c};color:${s?"#fff":c};background:${s?c:"#fff"}" onclick="togglePaseoCaluga('${a.id}','${v}')">${l}${s?" ✔":""}</button>`; });
+  h += `</div><div class="durante" style="margin-top:5px">Si hizo caca: recogerla con bolsa 💩.</div><h4>AL VOLVER</h4>`;
   CHECK_POST.forEach((c,i)=>{ const k=a.id+"-post-"+i;
     h += `<label><input type="checkbox" ${D.checks[k]?"checked":""} onchange="toggleCheck('${k}')"><span class="${D.checks[k]?"tachado":""}">${c}</span></label>`; });
   h += `<div class="acciones"><button class="listo" onclick="paseoListo('${a.id}')">Paseo listo ✔</button>
-       <button class="cerrar" onclick="cerrarPaseo()">Cerrar</button></div></div>`;
+        <button class="cerrar" onclick="cerrarPaseo()">Cerrar</button></div></div>`;
   return h;
 }
-function togglePaseoCaluga(id, v) {
+function abrirPaseo(id){ paseoAbierto = (paseoAbierto===id?null:id); render(); }
+function cerrarPaseo(){ paseoAbierto = null; render(); }
+function paseoListo(id){ D.hechas[id]=true; D.horasReales[id]=Date.now(); delete D.aplazos[id]; notifLimpiar(id); paseoAbierto=null; guardar(); render(); }
+function toggleCheck(k){ D.checks[k] = !D.checks[k]; guardar(); render(); }
+function setCacaLisa(id,v){ D.cacasLisa[id]=v; guardar(); render(); }
+function togglePaseoCaluga(id,v) {
   if (!D.paseoCaluga[id]) D.paseoCaluga[id] = {};
-  const nuevo = !D.paseoCaluga[id][v];
-  D.paseoCaluga[id][v] = nuevo;
+  const nuevo = !D.paseoCaluga[id][v]; D.paseoCaluga[id][v] = nuevo;
   if (nuevo) anotarEvento(v, "paseo");
   guardar(); render();
 }
+function aguaOk() { S.aguaUltima = Date.now(); notifLimpiar("agua"); delete D.aplazos["agua"]; chipAbierto = null; guardar(); render(); }
 
-// ═══════════ SEMANA ═══════════
-const LUGAR_TXT = { sabanilla:"sabanilla", suelo:"suelo", afuera:"afuera", balcon:"balcón", paseo:"paseo" };
-function renderSemana() {
-  const cont = document.getElementById("vistaSemana");
+// ── Semana ──
+function contSemana() {
   const fechas = Object.keys(S.dias).sort();
-  if (!fechas.length) { cont.innerHTML = `<div class="vacio">Aún no hay registros esta semana.</div>`; return; }
+  if (!fechas.length) return `<div class="vacio">Aún no hay registros esta semana.</div>`;
   let h = "";
   fechas.forEach(f => {
-    const d = S.dias[f];
-    const [y,mo,da] = f.split("-").map(Number);
-    const fecha = new Date(y, mo-1, da);
-    const nHechas = AGENDA.filter(a=>d.hechas && d.hechas[a.id]).length;
-    h += `<div class="dia"><h4>${DIAS[fecha.getDay()]} ${da}</h4><div class="reg">`;
-    h += `✔ ${nHechas}/${AGENDA.length} actividades completadas<br>`;
+    const d = S.dias[f], [y,mo,da] = f.split("-").map(Number);
+    const fecha = new Date(y,mo-1,da);
+    const n = AGENDA.filter(a => d.hechas && d.hechas[a.id]).length;
     const regs = d.registros || [];
     const pipis = regs.filter(r=>r.tipo==="pipi"), cacas = regs.filter(r=>r.tipo==="caca");
-    const detalle = (lista) => lista.map(r => horaTxt(r.t)+" "+(LUGAR_TXT[r.lugar]||r.lugar)).join(" · ");
-    h += `🐶 💧 ${pipis.length} pipí${pipis.length!==1?"s":""}${pipis.length?": "+detalle(pipis):""}<br>`;
-    h += `🐶 💩 ${cacas.length} caca${cacas.length!==1?"s":""}${cacas.length?": "+detalle(cacas):""}<br>`;
-    const paseos = AGENDA.filter(a=>a.paseo);
-    paseos.forEach((p,i)=>{
+    const det = l => l.map(r => horaTxt(r.t)+" "+(LUGAR_TXT[r.lugar]||r.lugar)).join(" · ");
+    h += `<div class="dia"><h4>${DIAS[fecha.getDay()]} ${da}</h4><div class="reg">
+      ✔ ${n}/${AGENDA.length} actividades<br>
+      💧 ${pipis.length} pipí${pipis.length!==1?"s":""}${pipis.length?": "+det(pipis):""}<br>
+      💩 ${cacas.length} caca${cacas.length!==1?"s":""}${cacas.length?": "+det(cacas):""}<br>`;
+    AGENDA.filter(a=>a.paseo).forEach((p,i) => {
       const c = d.cacasLisa ? d.cacasLisa[p.id] : null;
       const txt = c==="normal"?"💩 normal": c==="blanda"?"💩 <b style='color:#C2503E'>blanda ⚠️</b>": c==="no"?"sin caca":"—";
-      h += `🐕 Lisa, paseo ${i+1} (${p.hora}): ${txt}<br>`;
+      h += `🐕 Lisa, ${p.titulo.toLowerCase()}: ${txt}<br>`;
     });
     h += `</div></div>`;
   });
-  h += `<div class="pie">El registro se guarda de lunes a lunes y se reinicia cada semana.</div>`;
-  cont.innerHTML = h;
+  return h + `<div class="pie">Las tareas se reinician cada lunes. El historial de caca/pipí se guarda siempre para la predicción.</div>`;
 }
 
-// ═══════════ ACCIONES GENERALES ═══════════
-function toggle(id){ D.hechas[id] = !D.hechas[id]; guardar(); render(); }
-function toggleCheck(k){ D.checks[k] = !D.checks[k]; guardar(); render(); }
-function setCacaLisa(id,v){ D.cacasLisa[id] = v; guardar(); render(); }
-function abrirPaseo(id){ paseoAbierto = (paseoAbierto===id? null : id); render(); }
-function cerrarPaseo(){ paseoAbierto = null; render(); }
-function paseoListo(id){ D.hechas[id] = true; paseoAbierto = null; guardar(); render(); }
-function verTab(t){
-  tabActual = t;
-  document.getElementById("tabHoy").classList.toggle("activo", t==="hoy");
-  document.getElementById("tabSemana").classList.toggle("activo", t==="semana");
-  document.getElementById("vistaHoy").style.display = t==="hoy"?"block":"none";
-  document.getElementById("vistaSemana").style.display = t==="semana"?"block":"none";
+// ── Modelo ──
+function contModelo() {
+  const m = modeloCaca();
+  const nom = { despertar:"Al despertar", comida:"Después de comer", juego:"Después de jugar", paseo:"Durante el paseo" };
+  let h = `<div class="modelo-box">La app predice la caca de Caluga según cuánto suele demorar después de cada señal.
+    Parte con valores típicos de una cachorra de 4 meses y los reemplaza por los suyos al juntar ${MIN_DATOS} registros de esa señal.</div>`;
+  Object.keys(PRIOR).forEach(k => {
+    const listo = m.n[k] >= MIN_DATOS;
+    h += `<div class="dia"><h4 style="text-transform:none">${nom[k]}</h4><div class="reg">
+      Demora estimada: <b>${m.delays[k]} min</b><br>
+      ${listo ? "✅ Aprendido de " + m.n[k] + " registros de Caluga" : "⏳ Valor típico · " + m.n[k] + "/" + MIN_DATOS + " registros"}</div></div>`;
+  });
+  return h + `<div class="pie">Total de cacas registradas: ${m.total}</div>`;
+}
+function contReglas() {
+  return `<div class="dia reglas"><ul>
+    <li><b>Caca de Caluga = recogerla AL TIRO</b> (se la come). Al water con poco papel.</li>
+    <li>Caluga come <b>5 veces al día, 30 g</b> (taza de 52 g → llenar hasta 82 g).</li>
+    <li>Cuando comen juntas: <b>Caluga al corral</b> hasta que Lisa termine.</li>
+    <li>Si Lisa no come, el plato va <b>encima del refri</b> para la próxima comida.</li>
+    <li>Pregabalina de Lisa: <b>½ comprimido a las 9:00 y 20:00</b>, con omega 3 encima.</li>
+    <li>Comidas de Caluga: <b>alfombra olfativa → botella → manta olfativa → Kong</b>. Kong máx. 1 vez al día.</li>
+    <li>Lisa hace pipí y caca <b>solo en los paseos</b> (3 al día: mañana, tarde y noche).</li>
+    <li>Cualquier cosa rara: llamar a Pía 📞</li>
+  </ul></div>`;
+}
+
+// ═══════════════════ CICLO ═══════════════════
+function ciclo() {
+  const ahora = new Date();
+  const minAhora = ahora.getHours()*60 + ahora.getMinutes();
+
+  AGENDA.forEach(a => {
+    if (D.hechas[a.id] || aplazado(a.id)) return;
+    const m = minDeHora(a.hora);
+    if (minAhora < m) return;
+    const bloque = Math.floor((minAhora - m)/20);     // recuerda cada 20 min
+    const clave = a.id + "-" + bloque;
+    if (!NOTIF[clave]) { notifMarcar(clave); notificar(TIPOS[a.tipo].emoji + " " + a.titulo, a.msj, a.id); }
+  });
+
+  if (radarActivo(ahora)) {
+    const minsPipi = Math.floor((Date.now() - D.ultimaPipi)/60000);
+    if (minsPipi >= PIPI_MIN && !aplazado("pipi")) {
+      const clave = "pipi-" + Math.floor(minsPipi/20);
+      if (!NOTIF[clave]) { notifMarcar(clave); notificar("💧 Caluga", "Necesito hacer pipí, ¿me llevas al balcón? 🥺 (llevo " + fmt(minsPipi) + ")", "pipi"); }
+    }
+    const pc = proximaCaca();
+    if (pc && !aplazado("caca")) {
+      const rest = pc.pred - minAhora;
+      if (pc.trigger.min <= minAhora && rest <= 5) {
+        const clave = "caca-" + pc.trigger.id;
+        if (!NOTIF[clave]) { notifMarcar(clave); notificar("💩 Caluga", "Creo que me viene caca... ¡al balcón porfa! 😬 (~" + minATexto(pc.pred) + ")", "caca"); }
+      }
+    }
+    const horasAgua = (Date.now() - S.aguaUltima)/3600000;
+    if (horasAgua >= AGUA_HORAS && !aplazado("agua")) {
+      const clave = "agua-" + Math.floor(horasAgua);
+      if (!NOTIF[clave]) { notifMarcar(clave); notificar("💧 Pewitas", "¿Nos revisas el agua del bidón? 🥺", "agua"); }
+    }
+  }
+
+  let cambio = false;
+  (D.timers||[]).forEach(t => {
+    if (!t.avisado && Date.now() >= t.fin) { t.avisado = true; cambio = true; notificar(t.emoji + " " + t.nombre, t.msjFin, "timer-"+t.id); }
+  });
+  if (cambio) guardar();
+  const foco = document.activeElement;
+  if (foco && (foco.tagName === "INPUT" || foco.tagName === "SELECT")) return;  // no interrumpir edición
   render();
 }
-function render(){
-  renderRadar(); renderRadarCaca(); renderAgua(); renderRegistro();
-  if (tabActual==="hoy") renderTimeline(); else renderSemana();
-}
 
-// ═══════════ INICIO ═══════════
+function render() { renderAlertas(); renderChips(); renderSecciones(); }
+
 document.getElementById("fecha").textContent =
   new Date().toLocaleDateString("es-CL",{weekday:"long",day:"numeric",month:"long"});
 revisarBanner();
