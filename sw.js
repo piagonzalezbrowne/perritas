@@ -1,4 +1,4 @@
-const CACHE = "perritas-v5";
+const CACHE = "perritas-v6";
 const ARCHIVOS = ["./", "./index.html", "./manifest.json", "./icon-192.png", "./icon-512.png"];
 
 self.addEventListener("install", (e) => {
