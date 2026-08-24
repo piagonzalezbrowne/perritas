@@ -42,7 +42,6 @@
   .a-paseo { background: #EBF3E3; border-color: #6E9A4E; }
   .a-juego { background: #FBEAF4; border-color: #C96FA0; }
   .a-comida{ background: #FFF3DE; border-color: #D98E2B; }
-  .a-bano  { background: #E3F2F8; border-color: #4E9BB8; }
   .a-pipi  { background: #FDE3DF; border-color: #E2604C; }
   .a-caca  { background: #FBEBDF; border-color: #C97A4A; }
   .a-agua  { background: #E9EFFB; border-color: #6D8FD4; }
@@ -133,16 +132,22 @@
   .timer-chip { display: flex; align-items: center; gap: 8px; background: #EAE6F5; border: 2px solid #9B8EC4; border-radius: 14px; padding: 9px 12px; font-size: 13.5px; font-weight: 700; margin-top: 6px; }
   .timer-chip.listo { background: #EDF5E6; border-color: #7CA95C; }
   .timer-chip .quitar { margin-left: auto; border: none; background: transparent; color: #7A6A5C; font-weight: 900; font-size: 15px; cursor: pointer; }
-  .reg-botones { display: flex; gap: 8px; }
-  .reg-botones button { flex: 1; border: 2px solid #4E9BB8; background: #E3F2F8; color: #2E6B84; border-radius: 14px; padding: 11px 0; font-weight: 800; font-size: 15px; cursor: pointer; }
+  .reg-botones { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .reg-botones button { border: 2px solid #4E9BB8; background: #E3F2F8; color: #2E6B84; border-radius: 14px; padding: 11px 6px; font-weight: 800; font-size: 14px; cursor: pointer; }
   .pregunta { font-size: 13.5px; font-weight: 800; margin: 10px 0 6px; }
+  .campo-texto { width: 100%; border: 2px solid #C9BCA9; border-radius: 12px; padding: 9px 11px; font-size: 14px; font-family: inherit; color: #3A2F28; background: #fff; margin-bottom: 4px; }
 
   .reglas ul { padding-left: 18px; font-size: 14px; line-height: 1.7; color: #5E5045; }
+  .reglas li { margin-bottom: 4px; }
   .dia { background: #fff; border-radius: 16px; padding: 12px 14px; margin-bottom: 10px; box-shadow: 0 2px 8px rgba(60,45,30,.06); }
   .dia h4 { font-size: 15px; text-transform: capitalize; margin-bottom: 6px; }
   .dia .reg { font-size: 13.5px; line-height: 1.6; color: #5E5045; }
   .vacio { text-align: center; color: #9A8A78; font-size: 14px; padding: 20px 0; }
   .modelo-box { background: #FFF8E8; border: 2px dashed #E8A13D; border-radius: 14px; padding: 11px 13px; font-size: 13.5px; line-height: 1.6; color: #5E5045; margin-bottom: 10px; }
+  .balcon-box { background: #E3F2F8; border: 2px solid #4E9BB8; border-radius: 14px; padding: 12px 14px; font-size: 13.5px; line-height: 1.6; color: #5E5045; margin-bottom: 10px; }
+  .balcon-box b { color: #3A2F28; }
+  .balcon-box h4 { font-size: 14.5px; color: #2E6B84; margin: 10px 0 4px; }
+  .balcon-box h4:first-child { margin-top: 0; }
 
   .hora-edit { display: flex; align-items: center; gap: 9px; margin: 4px 0 8px; }
   .hora-edit input[type=time] {
@@ -151,7 +156,7 @@
   }
   .ev-fila {
     display: flex; align-items: center; gap: 9px; background: #fff;
-    border: 1.5px solid #E4DACB; border-radius: 13px; padding: 7px 10px; margin-bottom: 6px;
+    border: 1.5px solid #E4DACB; border-radius: 13px; padding: 7px 10px; margin-bottom: 6px; flex-wrap: wrap;
   }
   .ev-fila input[type=time] {
     border: 1.5px solid #C9BCA9; border-radius: 9px; padding: 5px 8px;
@@ -192,87 +197,64 @@
 <script>
 // ═══════════════════ AGENDA (editable) ═══════════════════
 const AGENDA = [
-  { id:"despertar", hora:"08:30", tipo:"bano", perro:"caluga", titulo:"Balcón apenas despierte", trigger:"despertar",
-    msj:"¡Desperté! Necesito ir al balcón 🥺",
-    nota:"Esperar pipí Y caca. Recoger la caca INMEDIATAMENTE (o se la come) y botarla al water con POCO papel." },
-
-  { id:"comida1", hora:"09:00", tipo:"comida", perro:"ambas", titulo:"Comida 1 + pregabalina de Lisa", comidaCaluga:true, trigger:"comida",
+  { id:"comida1", hora:"08:00", tipo:"comida", perro:"ambas", titulo:"Comida 1", comidaCaluga:true, trigger:"comida",
     msj:"Tenemos hambre, ¿nos das el desayuno? 🍚🥺",
-    nota:"Lisa: ½ taza Bravery + ½ comprimido de pregabalina con chorrito de omega 3 encima. Caluga: 30 g (taza 52 g → hasta 82 g). 🚧 Caluga al corral; abrir cuando Lisa termine. Si Lisa no come → plato encima del refri." },
-
-  { id:"bano2", hora:"09:20", tipo:"bano", perro:"caluga", titulo:"Balcón post-desayuno",
-    msj:"Comí y ahora necesito el balcón 😖",
-    nota:"Suele hacer caca de nuevo (remanente). Recoger al tiro y anotar." },
+    nota:"Pompos (entre 8:00 y 9:00): ½ pastilla de pregabalina de 75 mg escondida en la comida. Caluga: 30 g (taza 52 g → llenar hasta 82 g). 🚧 Caluga al corral; abrir cuando Pompos termine. Si Pompos no come, su plato va encima del refri." },
 
   { id:"paseo1", hora:"09:30", tipo:"paseo", perro:"ambas", titulo:"Paseo de la mañana", paseo:true, trigger:"paseo",
-    msj:"Lisa necesita pasear, por favor 🐕🥺",
-    nota:"Lisa hace pipí y caca SOLO en los paseos." },
+    msj:"Necesitamos pasear, por favor 🐕🥺",
+    nota:"Pompos hace pipí y caca solo en los paseos." },
 
   { id:"juego1", hora:"11:00", tipo:"juego", perro:"caluga", titulo:"Juego con Caluga (tanda 1)", trigger:"juego",
     msj:"¿Jugamos un ratito? Tengo mucha energía 🎾🥹",
     nota:"10 minutos con la pelota o cualquier juguete." },
 
-  { id:"snack1", hora:"11:30", tipo:"snack", perro:"ambas", titulo:"Snack 1", comidaCaluga:true, trigger:"comida",
-    msj:"¿Es hora del snack? 🍗👀",
-    nota:"Lisa: pata de pollo. Caluga: 30 g." },
+  { id:"comida2", hora:"12:30", tipo:"comida", perro:"caluga", titulo:"Comida 2 de Caluga", comidaCaluga:true, trigger:"comida",
+    msj:"¿Es hora de mi comida? 🍚👀",
+    nota:"30 g. Comida individual — Pompos no come a esta hora." },
 
-  { id:"bano3", hora:"11:50", tipo:"bano", perro:"caluga", titulo:"Balcón post-snack",
-    msj:"Balconcito, porfa 🚽",
-    nota:"Recoger caca al tiro si hace, y anotar." },
-
-  { id:"comida2", hora:"14:30", tipo:"comida", perro:"ambas", titulo:"Comida 2", comidaCaluga:true, trigger:"comida",
-    msj:"¡Almuerzooo! Ya rugen nuestras guatitas 🍚",
-    nota:"Lisa: ½ taza Bravery (sin pastilla). Caluga: 30 g. 🚧 Caluga al corral hasta que Lisa termine." },
-
-  { id:"bano4", hora:"14:50", tipo:"bano", perro:"caluga", titulo:"Balcón post-almuerzo",
-    msj:"Después de almorzar siempre me dan ganas 😬",
-    nota:"Caca probable. Recoger al tiro y anotar." },
+  { id:"comidaPompos2", hora:"14:30", tipo:"comida", perro:"pompos", titulo:"Comida de Pompos",
+    msj:"¿Ya es mi comida? 🍚🐕",
+    nota:"1 Suniflex escondido en la comida. Sin pregabalina a esta hora." },
 
   { id:"paseo2", hora:"15:30", tipo:"paseo", perro:"ambas", titulo:"Paseo de la tarde", paseo:true, trigger:"paseo",
-    msj:"Lisa lleva rato esperando su paseo 🐕😢",
+    msj:"Llevamos rato esperando el paseo 🐕😢",
     nota:"" },
 
   { id:"juego2", hora:"16:30", tipo:"juego", perro:"caluga", titulo:"Juego con Caluga (tanda 2)", trigger:"juego",
     msj:"Te traje mi juguete... ¿jugamos? 🎾🐶",
     nota:"Otros 10 minutos de juego." },
 
-  { id:"snack2", hora:"17:30", tipo:"snack", perro:"ambas", titulo:"Snack 2", comidaCaluga:true, trigger:"comida",
-    msj:"Snack de la tarde 🍗 ¿te acordaste?",
-    nota:"Lisa: pata de pollo. Caluga: 30 g." },
+  { id:"comida3", hora:"17:00", tipo:"comida", perro:"caluga", titulo:"Comida 3 de Caluga", comidaCaluga:true, trigger:"comida",
+    msj:"¿Ya es mi comida de la tarde? 🍚",
+    nota:"30 g." },
 
-  { id:"bano5", hora:"17:50", tipo:"bano", perro:"caluga", titulo:"Balcón post-snack",
-    msj:"Al balcón otra vez, porfis 🚽",
-    nota:"Recoger caca al tiro si hace, y anotar." },
-
-  { id:"comida3", hora:"20:00", tipo:"comida", perro:"ambas", titulo:"Comida 3 + pregabalina de Lisa", comidaCaluga:true, trigger:"comida",
+  { id:"comida4", hora:"20:30", tipo:"comida", perro:"ambas", titulo:"Comida 4 (última del día)", comidaCaluga:true, trigger:"comida",
     msj:"Última comida del día... y mi pastillita 💊🍚",
-    nota:"Lisa: ½ taza Bravery + ½ comprimido de pregabalina con omega 3 encima. Caluga: 30 g (comida n°5). 🚧 Corral hasta que Lisa termine." },
-
-  { id:"bano6", hora:"20:20", tipo:"bano", perro:"caluga", titulo:"Balcón post-comida",
-    msj:"Balcón de la noche 🌙",
-    nota:"Recoger caca al tiro y anotar." },
+    nota:"Pompos: ½ pastilla de pregabalina de 75 mg escondida en la comida. Caluga: 30 g (comida n.º 4). 🚧 Caluga al corral hasta que Pompos termine." },
 
   { id:"paseo3", hora:"21:00", tipo:"paseo", perro:"ambas", titulo:"Paseo de la noche", paseo:true, trigger:"paseo",
-    msj:"Último paseo del día, Lisa lo necesita 🌙🐕",
-    nota:"Después de este, Lisa aguanta hasta mañana." },
+    msj:"Último paseo del día, lo necesitamos 🌙🐕",
+    nota:"Después de este paseo, Pompos aguanta hasta mañana." },
 ];
 
 const CHECK_PRE = [
   "Bolsas para caca 💩 (¡SIEMPRE chequear!)",
   "Pote con tapa con pellets de Caluga (premios)",
-  "Botitas de Lisa: talco por AMBOS lados, darlas vuelta y ponérselas — ojo que no queden uñas afuera",
+  "Pelota de Caluga (para jugar si no hay otros perritos con quien interactuar)",
+  "Botitas de Pompos: talco por AMBOS lados, darlas vuelta y ponérselas — ojo que no queden uñas afuera",
   "Arnés de Caluga + premio (1 pellet) al ponérselo",
 ];
 const CHECK_POST = [
-  "Lavar botitas de Lisa POR AMBOS LADOS, colgarlas dadas vuelta para que seque el interior",
+  "Lavar botitas de Pompos POR AMBOS LADOS, colgarlas dadas vuelta para que seque el interior",
   "Caluga a la tina CON el arnés → lavar patas → secar con la toalla de perritos",
 ];
 const TIPOS = {
-  comida:{emoji:"🍚",color:"#D98E2B",bg:"#FFF3DE"}, snack:{emoji:"🍗",color:"#C97A4A",bg:"#FBEBDF"},
-  bano:{emoji:"🚽",color:"#4E9BB8",bg:"#E3F2F8"}, paseo:{emoji:"🦮",color:"#6E9A4E",bg:"#EBF3E3"},
+  comida:{emoji:"🍚",color:"#D98E2B",bg:"#FFF3DE"},
+  paseo:{emoji:"🦮",color:"#6E9A4E",bg:"#EBF3E3"},
   juego:{emoji:"🎾",color:"#C96FA0",bg:"#FBEAF4"},
 };
-const PERROS = { caluga:{n:"Caluga",e:"🐶"}, lisa:{n:"Lisa",e:"🐕"}, ambas:{n:"Las dos",e:"🐕🐶"} };
+const PERROS = { caluga:{n:"Caluga",e:"🐶"}, pompos:{n:"Pompos",e:"🐕"}, ambas:{n:"Las dos",e:"🐕🐶"} };
 const METODOS = ["Alfombra olfativa","Botella","Manta olfativa","Kong"];
 
 const PIPI_MIN = 120;                 // alerta de pipí cada 2 horas
@@ -284,13 +266,16 @@ const DIAS = ["domingo","lunes","martes","miércoles","jueves","viernes","sábad
 const LUGARES_PIPI = [["sabanilla","Sabanilla"],["suelo","Suelo"],["afuera","Afuera / balcón"]];
 const LUGARES_CACA = [["sabanilla","Sabanilla"],["suelo","Suelo"],["balcon","Balcón / afuera"]];
 const LUGAR_TXT = { sabanilla:"sabanilla", suelo:"suelo", afuera:"afuera", balcon:"balcón", paseo:"paseo" };
+const LUGARES_INDEBIDO = [["parque","Parque / paseo"],["casa","Dentro de la casa"]];
+const DURACIONES_SIESTA = ["30 min","1 h","1 h 30","2 h o más"];
 const LIMPIEZA = {
   "pipi-sabanilla": "🧻 <b>Botar la sabanilla</b> y poner una nueva.",
   "pipi-suelo": "🧽 1) Secar con toalla nova. 2) Aplicar <b>destructor de orina</b>. 3) <b>Esperar 15 minutos</b> (te aviso). 4) Secar de nuevo con toalla nova.",
   "pipi-afuera": "✅ ¡Bien Caluga! Nada que limpiar. Felicitarla 🎉",
-  "caca-sabanilla": "🧻 Recoger AL TIRO y <b>botar la sabanilla</b> completa. Poner una nueva.",
-  "caca-suelo": "🧽 Recoger AL TIRO (water, poco papel). Limpiar con <b>toallitas de Clorox</b>. Si quedó olor, <b>abrir la ventana al menos 10 minutos</b>.",
-  "caca-balcon": "✅ Recoger AL TIRO (water, poco papel) y limpiar la zona con <b>toallitas de Clorox</b>.",
+  "caca-sabanilla": "🧻 <b>Recoger con papel higiénico</b> y llevarlo al WC, y botar la sabanilla completa. Poner una nueva.",
+  "caca-suelo": "🧻 <b>Recoger con papel higiénico</b> y llevarlo al WC. 🧽 Limpiar la zona con <b>toallitas de Clorox</b>. Si quedó olor, <b>abrir la ventana al menos 10 minutos</b>.",
+  "caca-balcon": "🧻 <b>Recoger con papel higiénico</b> y llevarlo al WC. Limpiar la zona con <b>toallitas de Clorox</b>.",
+  "indebido-aviso": "⚠️ Anotado. Si más tarde vomita, tiene diarrea o se ve decaída/o, llamar a Pía 📞",
 };
 const TIMER_DEFS = {
   orina:    { min: 15, emoji: "🧴", nombre: "Destructor de orina", msjFin: "¡Pasaron los 15 min! Secar con toalla nova." },
@@ -309,6 +294,7 @@ function minATexto(m) { m = Math.round(m); return String(Math.floor(m/60)).padSt
 function fmt(mins){ const a=Math.abs(Math.round(mins)); if(a<60) return a+" min"; const h=Math.floor(a/60),m=a%60; return m===0?h+" h":h+" h "+m+" min"; }
 function horaTxt(ts){ const d=new Date(ts); return String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0"); }
 function radarActivo(d = new Date()) { const h = d.getHours(); return h >= PIPI_DESDE && h < PIPI_HASTA; }
+function idNuevo() { return String(Date.now()) + "-" + Math.floor(Math.random()*1000); }
 
 // ═══════════════════ FIREBASE + ESTADO ═══════════════════
 const firebaseConfig = {
@@ -336,7 +322,7 @@ function asegurarEstructura() {
   if (!S.historial) S.historial = [];         // permanente: no se borra cada semana
   if (!S.dias[HOY]) S.dias[HOY] = {};
   D = S.dias[HOY];
-  ["hechas","checks","cacasLisa","paseoCaluga","metodos","horasReales","aplazos"].forEach(k => { if(!D[k]) D[k] = {}; });
+  ["hechas","checks","metodos","horasReales","aplazos"].forEach(k => { if(!D[k]) D[k] = {}; });
   if (!D.registros) D.registros = [];
   if (!D.timers) D.timers = [];
   if (!D.ultimaPipi) D.ultimaPipi = Date.now();
@@ -382,12 +368,12 @@ function notificar(titulo, cuerpo, tag) {
 }
 
 // ═══════════════════ MODELO DE CACA ═══════════════════
-// Prior inicial (cachorra Corgi Pembroke, 4 meses, 5 kg, Biofresh 5 veces/día):
+// Prior inicial (cachorra Corgi Pembroke, Biofresh varias veces al día):
 // el reflejo gastrocólico dispara la caca ~5-30 min después de comer; el juego y el
 // movimiento del paseo también la estimulan. Con datos reales, cada señal aprende su
 // propia mediana a partir de 4 registros.
-const PRIOR = { despertar: 15, comida: 20, juego: 15, paseo: 10 };
-const VENTANA = { despertar: 60, comida: 90, juego: 45, paseo: 45 };
+const PRIOR = { comida: 20, juego: 15, paseo: 10 };
+const VENTANA = { comida: 90, juego: 45, paseo: 45 };
 const MIN_DATOS = 4;
 
 function triggersDeAgenda() {
@@ -403,7 +389,7 @@ function triggersHoy() {
 // aprende de TODO el historial: asocia cada caca a la señal previa más cercana
 function modeloCaca() {
   const base = triggersDeAgenda();
-  const datos = { despertar:[], comida:[], juego:[], paseo:[] };
+  const datos = { comida:[], juego:[], paseo:[] };
   (S.historial || []).filter(r => r.tipo === "caca").forEach(r => {
     const m = minDeTs(r.t);
     let mejor = null;
@@ -545,7 +531,7 @@ function renderChips() {
     const m = modeloCaca();
     const base = m.total >= MIN_DATOS
       ? "Aprendido de " + m.total + " cacas registradas de Caluga."
-      : "Aún usando lo típico de una cachorra de 4 meses (van " + m.total + " registros).";
+      : "Aún usando lo típico de una cachorra (van " + m.total + " registros).";
     h = `<div class="chip-detalle"><b>💩 Caca de Caluga</b> · hoy lleva ${cacasHoy} (normal: 3 a 5 al día)<br>
       ${pc ? "Próxima estimada ~<b>" + minATexto(pc.pred) + "</b>, unos " + pc.delay + " min después de " + pc.trigger.titulo.toLowerCase() + "."
            : "Sin ventana activa: la próxima se abre con la siguiente comida, juego o paseo."}<br>
@@ -561,7 +547,7 @@ function renderChips() {
 }
 
 // ═══════════════════ ACORDEONES ═══════════════════
-let abierto = { registro:false, agenda:true, semana:false, modelo:false, reglas:false };
+let abierto = { registro:false, agenda:true, balcon:false, semana:false, modelo:false, reglas:false };
 function toggleSec(k) { abierto[k] = !abierto[k]; render(); }
 
 function renderSecciones() {
@@ -569,6 +555,7 @@ function renderSecciones() {
   const secs = [
     { k:"registro", ico:"📝", tit:"Registro y limpieza", extra:"", cont: contRegistro() },
     { k:"agenda",   ico:"📋", tit:"Agenda del día", extra:nHechas+"/"+AGENDA.length, cont: contAgenda() },
+    { k:"balcon",   ico:"🚪", tit:"Salidas al balcón y limpieza", extra:"", cont: contBalcon() },
     { k:"semana",   ico:"🗓", tit:"Resumen semanal", extra:"", cont: contSemana() },
     { k:"modelo",   ico:"🔮", tit:"Predicción de caca", extra:"", cont: contModelo() },
     { k:"reglas",   ico:"📌", tit:"Reglas de oro", extra:"", cont: contReglas() },
@@ -586,18 +573,36 @@ function renderSecciones() {
 
 // ── Registro rápido ──
 let registroAbierto = null, instruccionActual = null, horaRegistro = null;
+let tmpPerro = null, tmpDuracion = null, tmpLugarIndebido = null, tmpTexto = "";
 function abrirRegistro(tipo) {
   registroAbierto = tipo; instruccionActual = null; abierto.registro = true; chipAbierto = null;
   horaRegistro = horaTxt(Date.now());
+  tmpPerro = null; tmpDuracion = null; tmpLugarIndebido = null; tmpTexto = "";
   render();
   const el = document.getElementById("secciones"); if (el) el.scrollIntoView({behavior:"smooth", block:"start"});
 }
 function setHoraRegistro(v) { horaRegistro = v; }
+function setTmpPerro(v) { tmpPerro = (tmpPerro === v ? null : v); render(); }
+function setTmpDuracion(v) { tmpDuracion = (tmpDuracion === v ? null : v); render(); }
+function setTmpLugarIndebido(v) { tmpLugarIndebido = (tmpLugarIndebido === v ? null : v); render(); }
+function setTmpTexto(v) { tmpTexto = v; }
+
+function chipsPerro() {
+  let h = `<div class="chips">`;
+  Object.keys(PERROS).forEach(k => {
+    const es = tmpPerro === k;
+    h += `<button style="${es?"background:#4E9BB8;color:#fff;border-color:#4E9BB8":""}" onclick="setTmpPerro('${k}')">${PERROS[k].e} ${PERROS[k].n}</button>`;
+  });
+  return h + `</div>`;
+}
 function contRegistro() {
   let h = `<div class="reg-botones">
     <button onclick="abrirRegistro('pipi')">💧 Hizo pipí</button>
-    <button onclick="abrirRegistro('caca')">💩 Hizo caca</button></div>`;
-  if (registroAbierto) {
+    <button onclick="abrirRegistro('caca')">💩 Hizo caca</button>
+    <button onclick="abrirRegistro('siesta')">😴 Durmió siesta</button>
+    <button onclick="abrirRegistro('indebido')">🚫🍬 Comió algo indebido</button></div>`;
+
+  if (registroAbierto === "pipi" || registroAbierto === "caca") {
     h += `<div class="pregunta">🕐 ¿A qué hora fue?</div>
       <div class="hora-edit"><input type="time" value="${horaRegistro||horaTxt(Date.now())}" onchange="setHoraRegistro(this.value)">
       <span style="font-size:12.5px;color:#7A6A5C">Déjala así si fue recién</span></div>`;
@@ -605,7 +610,24 @@ function contRegistro() {
     h += `<div class="pregunta">${registroAbierto==="pipi"?"💧 ¿Dónde hizo pipí?":"💩 ¿Dónde hizo caca?"}</div><div class="chips">`;
     lugares.forEach(([v,l]) => { h += `<button onclick="registrar('${registroAbierto}','${v}')">${l}</button>`; });
     h += `</div>`;
+  } else if (registroAbierto === "siesta") {
+    h += `<div class="pregunta">🕐 ¿A qué hora empezó?</div>
+      <div class="hora-edit"><input type="time" value="${horaRegistro||horaTxt(Date.now())}" onchange="setHoraRegistro(this.value)"></div>
+      <div class="pregunta">🐾 ¿Quién durmió siesta?</div>${chipsPerro()}
+      <div class="pregunta">⏱ ¿Cuánto durmió, más o menos?</div><div class="chips">`;
+    DURACIONES_SIESTA.forEach(d => { const es = tmpDuracion===d; h += `<button style="${es?"background:#9B8EC4;color:#fff;border-color:#9B8EC4":""}" onclick="setTmpDuracion('${d}')">${d}</button>`; });
+    h += `</div><button class="btn-paseo" style="margin-top:10px" onclick="guardarSiesta()">Guardar siesta 😴</button>`;
+  } else if (registroAbierto === "indebido") {
+    h += `<div class="pregunta">🕐 ¿A qué hora fue?</div>
+      <div class="hora-edit"><input type="time" value="${horaRegistro||horaTxt(Date.now())}" onchange="setHoraRegistro(this.value)"></div>
+      <div class="pregunta">🐾 ¿Quién comió algo indebido?</div>${chipsPerro()}
+      <div class="pregunta">📍 ¿Dónde fue?</div><div class="chips">`;
+    LUGARES_INDEBIDO.forEach(([v,l]) => { const es = tmpLugarIndebido===v; h += `<button style="${es?"background:#C2503E;color:#fff;border-color:#C2503E":""}" onclick="setTmpLugarIndebido('${v}')">${l}</button>`; });
+    h += `</div><div class="pregunta">📝 ¿Qué comió? (opcional)</div>
+      <input class="campo-texto" type="text" placeholder="ej: un pedazo de pan del suelo" value="${tmpTexto}" oninput="setTmpTexto(this.value)">
+      <button class="btn-paseo" style="margin-top:6px;border-color:#C2503E;color:#C2503E" onclick="guardarIndebido()">Guardar</button>`;
   }
+
   if (instruccionActual) {
     h += `<div class="instruccion">${LIMPIEZA[instruccionActual]}`;
     if (instruccionActual === "caca-suelo") h += `<br><button class="btn-paseo" style="margin-top:8px" onclick="iniciarTimer('ventilar')">Activar aviso de ventilar (10 min) 🪟</button>`;
@@ -618,16 +640,31 @@ function contRegistro() {
       ? `<div class="timer-chip">${t.emoji} ${t.nombre}: quedan ${rest} min <button class="quitar" onclick="quitarTimer(${t.id})">✕</button></div>`
       : `<div class="timer-chip listo">${t.emoji} ${t.nombre}: ¡listo! ${t.msjFin} <button class="quitar" onclick="quitarTimer(${t.id})">✕</button></div>`;
   });
+
   // ── lista editable de lo registrado hoy ──
   const regs = (D.registros||[]).slice().sort((a,b)=>a.t-b.t);
   h += `<div class="pregunta">📋 Registrado hoy ${regs.length ? "(toca la hora para corregirla)" : ""}</div>`;
   if (!regs.length) h += `<div class="vacio" style="padding:10px 0">Todavía sin registros hoy.</div>`;
   regs.forEach(r => {
-    h += `<div class="ev-fila">
-      <span>${r.tipo === "pipi" ? "💧" : "💩"}</span>
-      <input type="time" value="${horaTxt(r.t)}" onchange="setHoraEvento('${r.id}', this.value)">
-      <span class="ev-lugar">${LUGAR_TXT[r.lugar] || r.lugar}</span>
-      <button class="ev-borrar" onclick="borrarEvento('${r.id}')">✕</button></div>`;
+    if (r.tipo === "pipi" || r.tipo === "caca") {
+      h += `<div class="ev-fila">
+        <span>${r.tipo === "pipi" ? "💧" : "💩"}</span>
+        <input type="time" value="${horaTxt(r.t)}" onchange="setHoraEvento('${r.id}', this.value)">
+        <span class="ev-lugar">${LUGAR_TXT[r.lugar] || r.lugar}</span>
+        <button class="ev-borrar" onclick="borrarEvento('${r.id}')">✕</button></div>`;
+    } else if (r.tipo === "siesta") {
+      h += `<div class="ev-fila">
+        <span>😴</span>
+        <input type="time" value="${horaTxt(r.t)}" onchange="setHoraEvento('${r.id}', this.value)">
+        <span class="ev-lugar">${PERROS[r.perro] ? PERROS[r.perro].n : r.perro} · ${r.duracion || ""}</span>
+        <button class="ev-borrar" onclick="borrarEvento('${r.id}')">✕</button></div>`;
+    } else if (r.tipo === "indebido") {
+      h += `<div class="ev-fila">
+        <span>🚫🍬</span>
+        <input type="time" value="${horaTxt(r.t)}" onchange="setHoraEvento('${r.id}', this.value)">
+        <span class="ev-lugar">${PERROS[r.perro] ? PERROS[r.perro].n : r.perro} · ${r.lugar==="parque"?"parque":"casa"}${r.texto?" · "+r.texto:""}</span>
+        <button class="ev-borrar" onclick="borrarEvento('${r.id}')">✕</button></div>`;
+    }
   });
   return h;
 }
@@ -636,7 +673,7 @@ function tsDeHoraHoy(hhmm) {
   const d = new Date(); d.setHours(h, m, 0, 0); return d.getTime();
 }
 function anotarEvento(tipo, lugar, ts) {
-  const r = { id: String(Date.now()) + "-" + Math.floor(Math.random()*1000), t: ts || Date.now(), tipo, lugar };
+  const r = { id: idNuevo(), t: ts || Date.now(), tipo, lugar };
   D.registros.push(r); S.historial.push({ ...r });
   if (S.historial.length > 800) S.historial = S.historial.slice(-800);
   if (tipo === "pipi") { recalcUltimaPipi(); notifLimpiar("pipi"); delete D.aplazos["pipi"]; }
@@ -667,6 +704,21 @@ function registrar(tipo, lugar) {
   anotarEvento(tipo, lugar, horaRegistro ? tsDeHoraHoy(horaRegistro) : Date.now());
   registroAbierto = null; horaRegistro = null; instruccionActual = tipo + "-" + lugar;
   if (tipo === "pipi" && lugar === "suelo") iniciarTimer("orina");
+  guardar(); render();
+}
+function guardarSiesta() {
+  if (!tmpPerro || !tmpDuracion) { alert("Elige quién durmió siesta y por cuánto tiempo."); return; }
+  const r = { id: idNuevo(), t: horaRegistro ? tsDeHoraHoy(horaRegistro) : Date.now(), tipo:"siesta", perro:tmpPerro, duracion:tmpDuracion };
+  D.registros.push(r);
+  registroAbierto = null; horaRegistro = null; tmpPerro = null; tmpDuracion = null;
+  guardar(); render();
+}
+function guardarIndebido() {
+  if (!tmpPerro || !tmpLugarIndebido) { alert("Elige quién fue y dónde ocurrió."); return; }
+  const r = { id: idNuevo(), t: horaRegistro ? tsDeHoraHoy(horaRegistro) : Date.now(), tipo:"indebido", perro:tmpPerro, lugar:tmpLugarIndebido, texto:tmpTexto.trim() };
+  D.registros.push(r);
+  registroAbierto = null; horaRegistro = null; tmpPerro = null; tmpLugarIndebido = null; tmpTexto = "";
+  instruccionActual = "indebido-aviso";
   guardar(); render();
 }
 function cerrarInstruccion() { instruccionActual = null; render(); }
@@ -732,18 +784,19 @@ function contMetodo(a) {
 function setMetodo(id,m) { D.metodos[id] = (D.metodos[id] === m ? undefined : m); guardar(); render(); }
 
 function contPaseo(a) {
-  const caca = D.cacasLisa[a.id], pc = D.paseoCaluga[a.id] || {};
+  const pc = D.checks[a.id+"-reg"] || {};
   if (paseoAbierto !== a.id) {
-    const r = []; if (caca) r.push("Lisa ✔"); if (pc.pipi || pc.caca) r.push("Caluga ✔");
+    const r = []; if (pc.pipi || pc.caca) r.push("Caluga hizo ✔");
     return `<button class="btn-paseo" onclick="abrirPaseo('${a.id}')">Abrir checklist del paseo${r.length?" · "+r.join(" "):""}</button>`;
   }
   let h = `<div class="detalle"><h4>ANTES DE SALIR</h4>`;
   CHECK_PRE.forEach((c,i)=>{ const k=a.id+"-pre-"+i;
     h += `<label><input type="checkbox" ${D.checks[k]?"checked":""} onchange="toggleCheck('${k}')"><span class="${D.checks[k]?"tachado":""}">${c}</span></label>`; });
-  h += `<h4>DURANTE</h4><div class="durante">🐶 Premiar a Caluga (1 pellet) después de que interactúe con perritos. Vigilar que <b>no coma nada</b> del suelo, pero dejarla olfatear. 🐕 Lisa hace pipí y caca solo acá.</div>`;
-  h += `<h4>💩 ¿LISA HIZO CACA?</h4><div class="chips">`;
+  h += `<h4>DURANTE</h4><div class="durante">🐶 Priorizar que <b>Caluga interactúe y juegue con otros perritos</b>. Si no hay perritos con quien jugar, jugar tú con ella con la pelota. Premiarla (1 pellet) después de interactuar. Vigilar que no coma nada del suelo, pero dejarla olfatear.<br>🐕 Pompos hace pipí y caca solo acá.</div>`;
+  h += `<h4>💩 ¿POMPOS HIZO CACA?</h4><div class="chips">`;
+  const caca = D.checks[a.id+"-cacaPompos"];
   [["no","No hizo","#9A8A78"],["normal","Sí, normal","#6E9A4E"],["blanda","Sí, blanda ⚠️","#E2604C"]].forEach(([v,l,c])=>{
-    const s = caca===v; h += `<button style="border-color:${c};color:${s?"#fff":c};background:${s?c:"#fff"}" onclick="setCacaLisa('${a.id}','${v}')">${l}</button>`; });
+    const s = caca===v; h += `<button style="border-color:${c};color:${s?"#fff":c};background:${s?c:"#fff"}" onclick="setCacaPompos('${a.id}','${v}')">${l}</button>`; });
   h += `</div>`;
   if (caca==="blanda") h += `<div class="alerta-blanda">Anotado. Si se repite en el próximo paseo, avisarle a Pía 📞</div>`;
   h += `<h4>🐶 ¿CALUGA HIZO EN EL PASEO?</h4><div class="chips">`;
@@ -760,14 +813,32 @@ function abrirPaseo(id){ paseoAbierto = (paseoAbierto===id?null:id); render(); }
 function cerrarPaseo(){ paseoAbierto = null; render(); }
 function paseoListo(id){ D.hechas[id]=true; D.horasReales[id]=Date.now(); delete D.aplazos[id]; notifLimpiar(id); paseoAbierto=null; guardar(); render(); }
 function toggleCheck(k){ D.checks[k] = !D.checks[k]; guardar(); render(); }
-function setCacaLisa(id,v){ D.cacasLisa[id]=v; guardar(); render(); }
+function setCacaPompos(id,v){ D.checks[id+"-cacaPompos"]=v; guardar(); render(); }
 function togglePaseoCaluga(id,v) {
-  if (!D.paseoCaluga[id]) D.paseoCaluga[id] = {};
-  const nuevo = !D.paseoCaluga[id][v]; D.paseoCaluga[id][v] = nuevo;
+  const k = id+"-reg";
+  if (!D.checks[k]) D.checks[k] = {};
+  const nuevo = !D.checks[k][v]; D.checks[k][v] = nuevo;
   if (nuevo) anotarEvento(v, "paseo");
   guardar(); render();
 }
 function aguaOk() { S.aguaUltima = Date.now(); notifLimpiar("agua"); delete D.aplazos["agua"]; chipAbierto = null; guardar(); render(); }
+
+// ── Balcón & limpieza ──
+function contBalcon() {
+  return `<div class="balcon-box">
+    <h4>🌅 Al despertar y después de cada comida</h4>
+    Sacar a Caluga al balcón apenas despierte y después de <b>cada una</b> de sus comidas. No es una actividad programada de la agenda — hazlo cada vez que corresponda, sin necesidad de que aparezca una alerta. Esperar a que haga pipí <b>y</b> caca; recoger la caca de inmediato (o se la come).
+    <h4>🧻 Cómo limpiar el pipí</h4>
+    <b>En la sabanilla:</b> botarla completa y poner una nueva.<br>
+    <b>En el suelo:</b> secar con toalla nova → aplicar destructor de orina → esperar 15 minutos → secar de nuevo con toalla nova.
+    <h4>💩 Cómo limpiar la caca</h4>
+    Siempre se recoge con <b>papel higiénico</b> y se lleva al WC (nunca a la basura). Si fue en el suelo o el balcón, limpiar después la zona con toallitas de Clorox; si quedó olor, abrir la ventana al menos 10 minutos.
+    <h4>📝 Anotar siempre dónde hizo</h4>
+    Cada vez que Caluga haga pipí o caca (en el suelo, la sabanilla o el balcón), regístralo en "📝 Registro y limpieza" arriba — así la app aprende sus horarios y avisa mejor.
+    <h4>🍚 Ubicación de la comida</h4>
+    En el mueble bajo el basurero: la comida de <b>Pompos va al lado izquierdo</b> y la de <b>Caluga al lado derecho</b>.
+  </div>`;
+}
 
 // ── Semana ──
 function contSemana() {
@@ -780,15 +851,18 @@ function contSemana() {
     const n = AGENDA.filter(a => d.hechas && d.hechas[a.id]).length;
     const regs = d.registros || [];
     const pipis = regs.filter(r=>r.tipo==="pipi"), cacas = regs.filter(r=>r.tipo==="caca");
+    const siestas = regs.filter(r=>r.tipo==="siesta"), indebidos = regs.filter(r=>r.tipo==="indebido");
     const det = l => l.map(r => horaTxt(r.t)+" "+(LUGAR_TXT[r.lugar]||r.lugar)).join(" · ");
     h += `<div class="dia"><h4>${DIAS[fecha.getDay()]} ${da}</h4><div class="reg">
       ✔ ${n}/${AGENDA.length} actividades<br>
       💧 ${pipis.length} pipí${pipis.length!==1?"s":""}${pipis.length?": "+det(pipis):""}<br>
       💩 ${cacas.length} caca${cacas.length!==1?"s":""}${cacas.length?": "+det(cacas):""}<br>`;
-    AGENDA.filter(a=>a.paseo).forEach((p,i) => {
-      const c = d.cacasLisa ? d.cacasLisa[p.id] : null;
+    if (siestas.length) h += `😴 ${siestas.length} siesta${siestas.length!==1?"s":""}<br>`;
+    if (indebidos.length) h += `🚫🍬 ${indebidos.length} vez/veces comió algo indebido<br>`;
+    AGENDA.filter(a=>a.paseo).forEach((p) => {
+      const c = d.checks ? d.checks[p.id+"-cacaPompos"] : null;
       const txt = c==="normal"?"💩 normal": c==="blanda"?"💩 <b style='color:#C2503E'>blanda ⚠️</b>": c==="no"?"sin caca":"—";
-      h += `🐕 Lisa, ${p.titulo.toLowerCase()}: ${txt}<br>`;
+      h += `🐕 Pompos, ${p.titulo.toLowerCase()}: ${txt}<br>`;
     });
     h += `</div></div>`;
   });
@@ -798,9 +872,9 @@ function contSemana() {
 // ── Modelo ──
 function contModelo() {
   const m = modeloCaca();
-  const nom = { despertar:"Al despertar", comida:"Después de comer", juego:"Después de jugar", paseo:"Durante el paseo" };
+  const nom = { comida:"Después de comer", juego:"Después de jugar", paseo:"Durante el paseo" };
   let h = `<div class="modelo-box">La app predice la caca de Caluga según cuánto suele demorar después de cada señal.
-    Parte con valores típicos de una cachorra de 4 meses y los reemplaza por los suyos al juntar ${MIN_DATOS} registros de esa señal.</div>`;
+    Parte con valores típicos de una cachorra y los reemplaza por los suyos al juntar ${MIN_DATOS} registros de esa señal.</div>`;
   Object.keys(PRIOR).forEach(k => {
     const listo = m.n[k] >= MIN_DATOS;
     h += `<div class="dia"><h4 style="text-transform:none">${nom[k]}</h4><div class="reg">
@@ -811,13 +885,16 @@ function contModelo() {
 }
 function contReglas() {
   return `<div class="dia reglas"><ul>
-    <li><b>Caca de Caluga = recogerla AL TIRO</b> (se la come). Al water con poco papel.</li>
-    <li>Caluga come <b>5 veces al día, 30 g</b> (taza de 52 g → llenar hasta 82 g).</li>
-    <li>Cuando comen juntas: <b>Caluga al corral</b> hasta que Lisa termine.</li>
-    <li>Si Lisa no come, el plato va <b>encima del refri</b> para la próxima comida.</li>
-    <li>Pregabalina de Lisa: <b>½ comprimido a las 9:00 y 20:00</b>, con omega 3 encima.</li>
-    <li>Comidas de Caluga: <b>alfombra olfativa → botella → manta olfativa → Kong</b>. Kong máx. 1 vez al día.</li>
-    <li>Lisa hace pipí y caca <b>solo en los paseos</b> (3 al día: mañana, tarde y noche).</li>
+    <li><b>Caca de Caluga = recogerla AL TIRO</b> (se la come). Al WC con papel higiénico.</li>
+    <li>Caluga come <b>4 veces al día, 30 g</b> cada vez (taza de 52 g → llenar hasta 82 g).</li>
+    <li>Pompos come <b>3 veces al día</b>: comida 1 (½ pregabalina 75 mg), comida 2 (1 Suniflex), comida 4 (½ pregabalina 75 mg).</li>
+    <li>Cuando comen juntas (comida 1 y comida 4): <b>Caluga al corral</b> hasta que Pompos termine.</li>
+    <li>Si Pompos no come, su plato va <b>encima del refri</b> para la próxima comida.</li>
+    <li>Comida de Pompos: lado <b>izquierdo</b> del mueble bajo el basurero. Comida de Caluga: lado <b>derecho</b>.</li>
+    <li>Método de comida de Caluga, en este orden: <b>alfombra olfativa → botella → manta olfativa → Kong</b>. Kong máx. 1 vez al día.</li>
+    <li>Pompos hace pipí y caca <b>solo en los paseos</b> (3 al día: mañana, tarde y noche).</li>
+    <li>En el paseo: llevar <b>premios (pellets de Caluga) y su pelota</b>. Priorizar que interactúe con otros perritos; si no hay, jugar con ella con la pelota.</li>
+    <li>Al despertar y después de cada comida: sacar a Caluga al balcón (ver sección "🚪 Salidas al balcón y limpieza").</li>
     <li>Cualquier cosa rara: llamar a Pía 📞</li>
   </ul></div>`;
 }
