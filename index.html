@@ -199,7 +199,7 @@
 const AGENDA = [
   { id:"comida1", hora:"08:00", tipo:"comida", perro:"ambas", titulo:"Comida 1", comidaCaluga:true, trigger:"comida",
     msj:"Tenemos hambre, ¿nos das el desayuno? 🍚🥺",
-    nota:"Pompos (entre 8:00 y 9:00): ½ pastilla de pregabalina de 75 mg escondida en la comida. Caluga: 30 g (taza 52 g → llenar hasta 82 g). 🚧 Caluga al corral; abrir cuando Pompos termine. Si Pompos no come, su plato va encima del refri." },
+    nota:"Pompos (entre 8:00 y 9:00): ½ pastilla de pregabalina de 75 mg escondida en la comida. Caluga: 50 g (pesar en la balanza — la referencia vieja de la taza era para 30 g, no sirve para esta cantidad). 🚧 Caluga al corral; abrir cuando Pompos termine. Si Pompos no come, su plato va encima del refri." },
 
   { id:"paseo1", hora:"09:30", tipo:"paseo", perro:"ambas", titulo:"Paseo de la mañana", paseo:true, trigger:"paseo",
     msj:"Necesitamos pasear, por favor 🐕🥺",
@@ -209,13 +209,9 @@ const AGENDA = [
     msj:"¿Jugamos un ratito? Tengo mucha energía 🎾🥹",
     nota:"10 minutos con la pelota o cualquier juguete." },
 
-  { id:"comida2", hora:"12:30", tipo:"comida", perro:"caluga", titulo:"Comida 2 de Caluga", comidaCaluga:true, trigger:"comida",
-    msj:"¿Es hora de mi comida? 🍚👀",
-    nota:"30 g. Comida individual — Pompos no come a esta hora." },
-
-  { id:"comidaPompos2", hora:"14:30", tipo:"comida", perro:"pompos", titulo:"Comida de Pompos",
-    msj:"¿Ya es mi comida? 🍚🐕",
-    nota:"1 Suniflex escondido en la comida. Sin pregabalina a esta hora." },
+  { id:"comida2", hora:"14:30", tipo:"comida", perro:"ambas", titulo:"Comida 2", comidaCaluga:true, trigger:"comida",
+    msj:"¿Ya es la comida? 🍚👀",
+    nota:"Pompos: 1 Suniflex escondido en la comida (sin pregabalina a esta hora). Caluga: 50 g. 🚧 Caluga al corral; abrir cuando Pompos termine." },
 
   { id:"paseo2", hora:"15:30", tipo:"paseo", perro:"ambas", titulo:"Paseo de la tarde", paseo:true, trigger:"paseo",
     msj:"Llevamos rato esperando el paseo 🐕😢",
@@ -225,13 +221,9 @@ const AGENDA = [
     msj:"Te traje mi juguete... ¿jugamos? 🎾🐶",
     nota:"Otros 10 minutos de juego." },
 
-  { id:"comida3", hora:"17:00", tipo:"comida", perro:"caluga", titulo:"Comida 3 de Caluga", comidaCaluga:true, trigger:"comida",
-    msj:"¿Ya es mi comida de la tarde? 🍚",
-    nota:"30 g." },
-
-  { id:"comida4", hora:"20:30", tipo:"comida", perro:"ambas", titulo:"Comida 4 (última del día)", comidaCaluga:true, trigger:"comida",
+  { id:"comida3", hora:"20:30", tipo:"comida", perro:"ambas", titulo:"Comida 3 (última del día)", comidaCaluga:true, trigger:"comida",
     msj:"Última comida del día... y mi pastillita 💊🍚",
-    nota:"Pompos: ½ pastilla de pregabalina de 75 mg escondida en la comida. Caluga: 30 g (comida n.º 4). 🚧 Caluga al corral hasta que Pompos termine." },
+    nota:"Pompos: ½ pastilla de pregabalina de 75 mg escondida en la comida. Caluga: 50 g (comida n.º 3). 🚧 Caluga al corral hasta que Pompos termine." },
 
   { id:"paseo3", hora:"21:00", tipo:"paseo", perro:"ambas", titulo:"Paseo de la noche", paseo:true, trigger:"paseo",
     msj:"Último paseo del día, lo necesitamos 🌙🐕",
@@ -886,9 +878,9 @@ function contModelo() {
 function contReglas() {
   return `<div class="dia reglas"><ul>
     <li><b>Caca de Caluga = recogerla AL TIRO</b> (se la come). Al WC con papel higiénico.</li>
-    <li>Caluga come <b>4 veces al día, 30 g</b> cada vez (taza de 52 g → llenar hasta 82 g).</li>
-    <li>Pompos come <b>3 veces al día</b>: comida 1 (½ pregabalina 75 mg), comida 2 (1 Suniflex), comida 4 (½ pregabalina 75 mg).</li>
-    <li>Cuando comen juntas (comida 1 y comida 4): <b>Caluga al corral</b> hasta que Pompos termine.</li>
+    <li>Caluga come <b>3 veces al día, 50 g</b> cada vez (150 g diarios en total, pesados en la balanza), en los mismos horarios que Pompos.</li>
+    <li>Pompos come <b>3 veces al día</b>: comida 1 (½ pregabalina 75 mg), comida 2 (1 Suniflex), comida 3 (½ pregabalina 75 mg).</li>
+    <li>Las tres comidas son juntas: <b>Caluga al corral</b> hasta que Pompos termine.</li>
     <li>Si Pompos no come, su plato va <b>encima del refri</b> para la próxima comida.</li>
     <li>Comida de Pompos: lado <b>izquierdo</b> del mueble bajo el basurero. Comida de Caluga: lado <b>derecho</b>.</li>
     <li>Método de comida de Caluga, en este orden: <b>alfombra olfativa → botella → manta olfativa → Kong</b>. Kong máx. 1 vez al día.</li>
